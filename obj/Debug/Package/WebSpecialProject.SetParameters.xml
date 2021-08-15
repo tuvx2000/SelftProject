@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <setParameter name="IIS Web Application Name" value="Default Web Site/" />
+  <setParameter name="WebProjectEntities-Web.config Connection String" value="metadata=res://*/Models.xuantuDB.csdl|res://*/Models.xuantuDB.ssdl|res://*/Models.xuantuDB.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=xuantudb.cmxxavfzjxrv.ap-northeast-1.rds.amazonaws.com;initial catalog=WebProject;persist security info=True;user id=xuantuDB;password=xuantuDB;MultipleActiveResultSets=True;App=EntityFramework&quot;" />
+</parameters>
