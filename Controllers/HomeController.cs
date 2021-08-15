@@ -26,6 +26,38 @@ namespace WebSpecialProject.Controllers
             return View();
         }
 
+        public ActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Register(FormCollection form)
+        {
+            User user = new User();
+            user.UserName = form["tentaikhoan"];
+            user.PassWord = form["matkhau"];
+            user.Email = form["email"];
+            user.Name = form["hoten"];
+            user.Address = form["diachi"];
+            user.SDT = form["sdt"];
+
+            string inform = "";
+            var search = dbcontext.Users.Where(m => m.UserName == user.UserName).FirstOrDefault();
+            if (search == null)
+            {
+                dbcontext.Users.Add(user);
+                dbcontext.SaveChanges();
+                inform = "Đăng ký thành công. Hãy đăng nhập!";
+                ViewBag.Inform = inform;
+            }
+            else
+            {
+                inform = "Tên tài khoản đã tồn tại. Vui lòng thử lại! ";
+                ViewBag.Inform = inform;
+            }
+            return View();
+        }
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
