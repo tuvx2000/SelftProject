@@ -210,6 +210,37 @@
       <DependentUpon>xuantuDB.edmx</DependentUpon>
       <LastGenOutput>xuantuDB.cs</LastGenOutput>
     </Content>
+    <Content Include="Preferences\css\bootstrap.min.css" />
+    <Content Include="Preferences\css\font-awesome.css" />
+    <Content Include="Preferences\css\templatemo-training-studio.css" />
+    <Content Include="Preferences\fonts\flexslider-icon.svg" />
+    <Content Include="Preferences\fonts\fontawesome-webfont.svg" />
+    <Content Include="Preferences\fonts\slick.svg" />
+    <Content Include="Preferences\images\contact-bg.jpg" />
+    <Content Include="Preferences\images\cta-bg.jpg" />
+    <Content Include="Preferences\images\features-first-icon.png" />
+    <Content Include="Preferences\images\first-trainer.jpg" />
+    <Content Include="Preferences\images\gym-video.mp4" />
+    <Content Include="Preferences\images\line-dec.png" />
+    <Content Include="Preferences\images\schedule-bg.jpg" />
+    <Content Include="Preferences\images\second-trainer.jpg" />
+    <Content Include="Preferences\images\slide-01.jpg" />
+    <Content Include="Preferences\images\tabs-first-icon.png" />
+    <Content Include="Preferences\images\third-trainer.jpg" />
+    <Content Include="Preferences\images\training-image-01.jpg" />
+    <Content Include="Preferences\images\training-image-02.jpg" />
+    <Content Include="Preferences\images\training-image-03.jpg" />
+    <Content Include="Preferences\images\training-image-04.jpg" />
+    <Content Include="Preferences\js\accordions.js" />
+    <Content Include="Preferences\js\bootstrap.min.js" />
+    <Content Include="Preferences\js\custom.js" />
+    <Content Include="Preferences\js\imgfix.min.js" />
+    <Content Include="Preferences\js\jquery-2.1.0.min.js" />
+    <Content Include="Preferences\js\jquery.counterup.min.js" />
+    <Content Include="Preferences\js\mixitup.js" />
+    <Content Include="Preferences\js\popper.js" />
+    <Content Include="Preferences\js\scrollreveal.min.js" />
+    <Content Include="Preferences\js\waypoints.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\xuantuDB.edmx">
@@ -219,6 +250,18 @@
     <Content Include="Models\xuantuDB.edmx.diagram">
       <DependentUpon>xuantuDB.edmx</DependentUpon>
     </Content>
+    <Content Include="Preferences\fonts\Flaticon.woff" />
+    <Content Include="Preferences\fonts\flexslider-icon.eot" />
+    <Content Include="Preferences\fonts\flexslider-icon.ttf" />
+    <Content Include="Preferences\fonts\flexslider-icon.woff" />
+    <Content Include="Preferences\fonts\fontawesome-webfont.eot" />
+    <Content Include="Preferences\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Preferences\fonts\fontawesome-webfont.woff" />
+    <Content Include="Preferences\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Preferences\fonts\FontAwesome.otf" />
+    <Content Include="Preferences\fonts\slick.eot" />
+    <Content Include="Preferences\fonts\slick.ttf" />
+    <Content Include="Preferences\fonts\slick.woff" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
