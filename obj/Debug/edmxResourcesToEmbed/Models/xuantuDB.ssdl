@@ -128,13 +128,6 @@
     <Property Name="NumberTheBooker" Type="nchar" MaxLength="30" />
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
-  <EntityType Name="Stuff">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="NameStuff" Type="nchar" MaxLength="10" />
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-  </EntityType>
   <EntityType Name="TypeOfFood">
     <Key>
       <PropertyRef Name="ID" />
@@ -153,6 +146,13 @@
     <Property Name="Address" Type="nvarchar" MaxLength="50" />
     <Property Name="SDT" Type="nchar" MaxLength="10" />
     <Property Name="Email" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="xxxxxy">
+    <Key>
+      <PropertyRef Name="int" />
+    </Key>
+    <Property Name="int" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="str" Type="nchar" MaxLength="10" />
   </EntityType>
   <Association Name="FK_Comment_Food">
     <End Role="Food" Type="Self.Food" Multiplicity="0..1" />
@@ -250,9 +250,9 @@
     <EntitySet Name="Forum" EntityType="Self.Forum" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Stuff" EntityType="Self.Stuff" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TypeOfFood" EntityType="Self.TypeOfFood" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="xxxxxy" EntityType="Self.xxxxxy" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Comment_Food" Association="Self.FK_Comment_Food">
       <End Role="Food" EntitySet="Food" />
       <End Role="Comment" EntitySet="Comment" />

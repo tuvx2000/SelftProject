@@ -16,7 +16,6 @@
         <EntityTypeShape EntityType="WebProjectModel.Forum" Width="1.5" PointX="2.75" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="WebProjectModel.Invoice" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="WebProjectModel.Reservation" Width="1.5" PointX="10.75" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebProjectModel.Stuff" Width="1.5" PointX="4.75" PointY="12" IsExpanded="true" />
         <EntityTypeShape EntityType="WebProjectModel.TypeOfFood" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="WebProjectModel.User" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
         <AssociationConnector Association="WebProjectModel.FK_Comment_Food" ManuallyRouted="false" />
@@ -26,6 +25,7 @@
         <AssociationConnector Association="WebProjectModel.FK_dbo_EntityProfileItem_dbo_EntityProfile_EntityProfile_ID" ManuallyRouted="false" />
         <AssociationConnector Association="WebProjectModel.FK_Food_TypeOfFood" ManuallyRouted="false" />
         <AssociationConnector Association="WebProjectModel.FK_Invoice_User" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="WebProjectModel.xxxxxy" Width="1.5" PointX="1.25" PointY="0.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

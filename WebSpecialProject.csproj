@@ -165,9 +165,6 @@
     <Compile Include="Models\Reservation.cs">
       <DependentUpon>xuantuDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Stuff.cs">
-      <DependentUpon>xuantuDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TypeOfFood.cs">
       <DependentUpon>xuantuDB.tt</DependentUpon>
     </Compile>
@@ -188,6 +185,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>xuantuDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\xxxxxy.cs">
+      <DependentUpon>xuantuDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -138,14 +138,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Stuffs">
-      <EntityTypeMapping TypeName="WebProjectModel.Stuff">
-        <MappingFragment StoreEntitySet="Stuff">
-          <ScalarProperty Name="NameStuff" ColumnName="NameStuff" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="TypeOfFoods">
       <EntityTypeMapping TypeName="WebProjectModel.TypeOfFood">
         <MappingFragment StoreEntitySet="TypeOfFood">
@@ -164,6 +156,14 @@
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="SDT" ColumnName="SDT" />
           <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="xxxxxies">
+      <EntityTypeMapping TypeName="WebProjectModel.xxxxxy">
+        <MappingFragment StoreEntitySet="xxxxxy">
+          <ScalarProperty Name="str" ColumnName="str" />
+          <ScalarProperty Name="int" ColumnName="int" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

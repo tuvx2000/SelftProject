@@ -76,7 +76,6 @@ C:\Users\TuanVXM\Desktop\WebSpecialProject\bin\System.Web.WebPages.Razor.xml
 C:\Users\TuanVXM\Desktop\WebSpecialProject\bin\Newtonsoft.Json.xml
 C:\Users\TuanVXM\Desktop\WebSpecialProject\bin\Antlr3.Runtime.pdb
 C:\Users\TuanVXM\Desktop\WebSpecialProject\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\TuanVXM\Desktop\WebSpecialProject\obj\Debug\WebSpecialProject.csprojAssemblyReference.cache
 C:\Users\TuanVXM\Desktop\WebSpecialProject\obj\Debug\WebSpecialProject.csproj.CoreCompileInputs.cache
 C:\Users\TuanVXM\Desktop\WebSpecialProject\obj\Debug\WebSpecialProject.csproj.CopyComplete
 C:\Users\TuanVXM\Desktop\WebSpecialProject\obj\Debug\WebSpecialProject.dll

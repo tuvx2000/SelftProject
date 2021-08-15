@@ -139,13 +139,6 @@
     <Property Name="NumberTheBooker" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
   </EntityType>
-  <EntityType Name="Stuff">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="NameStuff" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-  </EntityType>
   <EntityType Name="TypeOfFood">
     <Key>
       <PropertyRef Name="ID" />
@@ -264,7 +257,6 @@
     <EntitySet Name="Fora" EntityType="Self.Forum" />
     <EntitySet Name="Invoices" EntityType="Self.Invoice" />
     <EntitySet Name="Reservations" EntityType="Self.Reservation" />
-    <EntitySet Name="Stuffs" EntityType="Self.Stuff" />
     <EntitySet Name="TypeOfFoods" EntityType="Self.TypeOfFood" />
     <EntitySet Name="Users" EntityType="Self.User" />
     <AssociationSet Name="FK_Comment_Food" Association="Self.FK_Comment_Food">
@@ -295,5 +287,13 @@
       <End Role="User" EntitySet="Users" />
       <End Role="Invoice" EntitySet="Invoices" />
     </AssociationSet>
+    <EntitySet Name="xxxxxies" EntityType="WebProjectModel.xxxxxy" />
   </EntityContainer>
+  <EntityType Name="xxxxxy">
+    <Key>
+      <PropertyRef Name="int" />
+    </Key>
+    <Property Name="int" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="str" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
 </Schema>

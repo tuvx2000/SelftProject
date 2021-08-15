@@ -36,8 +36,8 @@ namespace WebSpecialProject.Models
         public virtual DbSet<Forum> Fora { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<Reservation> Reservations { get; set; }
-        public virtual DbSet<Stuff> Stuffs { get; set; }
         public virtual DbSet<TypeOfFood> TypeOfFoods { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<xxxxxy> xxxxxies { get; set; }
     }
 }

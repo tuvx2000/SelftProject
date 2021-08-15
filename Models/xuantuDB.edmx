@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="WebProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="WebProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -133,13 +133,6 @@
           <Property Name="NumberTheBooker" Type="nchar" MaxLength="30" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <EntityType Name="Stuff">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="NameStuff" Type="nchar" MaxLength="10" />
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-        </EntityType>
         <EntityType Name="TypeOfFood">
           <Key>
             <PropertyRef Name="ID" />
@@ -158,6 +151,13 @@
           <Property Name="Address" Type="nvarchar" MaxLength="50" />
           <Property Name="SDT" Type="nchar" MaxLength="10" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="xxxxxy">
+          <Key>
+            <PropertyRef Name="int" />
+          </Key>
+          <Property Name="int" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="str" Type="nchar" MaxLength="10" />
         </EntityType>
         <Association Name="FK_Comment_Food">
           <End Role="Food" Type="Self.Food" Multiplicity="0..1" />
@@ -255,9 +255,9 @@
           <EntitySet Name="Forum" EntityType="Self.Forum" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Stuff" EntityType="Self.Stuff" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeOfFood" EntityType="Self.TypeOfFood" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="xxxxxy" EntityType="Self.xxxxxy" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Comment_Food" Association="Self.FK_Comment_Food">
             <End Role="Food" EntitySet="Food" />
             <End Role="Comment" EntitySet="Comment" />
@@ -287,8 +287,7 @@
             <End Role="Invoice" EntitySet="Invoice" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WebProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -431,13 +430,6 @@
           <Property Name="NumberTheBooker" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
-        <EntityType Name="Stuff">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="NameStuff" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
         <EntityType Name="TypeOfFood">
           <Key>
             <PropertyRef Name="ID" />
@@ -556,7 +548,6 @@
           <EntitySet Name="Fora" EntityType="Self.Forum" />
           <EntitySet Name="Invoices" EntityType="Self.Invoice" />
           <EntitySet Name="Reservations" EntityType="Self.Reservation" />
-          <EntitySet Name="Stuffs" EntityType="Self.Stuff" />
           <EntitySet Name="TypeOfFoods" EntityType="Self.TypeOfFood" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="FK_Comment_Food" Association="Self.FK_Comment_Food">
@@ -587,7 +578,15 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Invoice" EntitySet="Invoices" />
           </AssociationSet>
+          <EntitySet Name="xxxxxies" EntityType="WebProjectModel.xxxxxy" />
         </EntityContainer>
+        <EntityType Name="xxxxxy">
+          <Key>
+            <PropertyRef Name="int" />
+          </Key>
+          <Property Name="int" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="str" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -731,14 +730,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Stuffs">
-            <EntityTypeMapping TypeName="WebProjectModel.Stuff">
-              <MappingFragment StoreEntitySet="Stuff">
-                <ScalarProperty Name="NameStuff" ColumnName="NameStuff" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TypeOfFoods">
             <EntityTypeMapping TypeName="WebProjectModel.TypeOfFood">
               <MappingFragment StoreEntitySet="TypeOfFood">
@@ -757,6 +748,14 @@
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="SDT" ColumnName="SDT" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="xxxxxies">
+            <EntityTypeMapping TypeName="WebProjectModel.xxxxxy">
+              <MappingFragment StoreEntitySet="xxxxxy">
+                <ScalarProperty Name="str" ColumnName="str" />
+                <ScalarProperty Name="int" ColumnName="int" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
