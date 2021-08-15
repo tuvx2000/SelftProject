@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebSpecialProject.Models;
 
 namespace WebSpecialProject.Controllers
 {
     public class HomeController : Controller
     {
+        WebProjectEntities dbcontext = new WebProjectEntities();
+
         public ActionResult Index()
         {
-            return View();
+            var list = dbcontext.Foods.ToList();
+            var x = list[0];
+            var y = x.FoodName;
+            return View(list);
         }
 
         public ActionResult About()

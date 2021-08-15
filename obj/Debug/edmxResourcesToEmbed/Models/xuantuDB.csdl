@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WebProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BasicSetting">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeOfBasicSettings" Type="Int32" Nullable="false" />
+    <Property Name="BoolValue" Type="Boolean" Nullable="false" />
+    <Property Name="IntValue" Type="Int32" Nullable="false" />
+    <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Deleted" Type="Int32" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="Default" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDCustomer" Type="Int32" />
+    <Property Name="IDFood" Type="Int32" />
+    <Property Name="Comment1" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Food" Relationship="Self.FK_Comment_Food" FromRole="Comment" ToRole="Food" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Comment_User" FromRole="Comment" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Contact">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="DetailedInvoice">
+    <Key>
+      <PropertyRef Name="IDInvoice" />
+      <PropertyRef Name="IDFood" />
+    </Key>
+    <Property Name="IDInvoice" Type="Int32" Nullable="false" />
+    <Property Name="IDFood" Type="Int32" Nullable="false" />
+    <Property Name="IntoMoney" Type="Double" />
+    <Property Name="Quantity" Type="Int32" />
+    <NavigationProperty Name="Food" Relationship="Self.FK_DetailedInvoice_Food" FromRole="DetailedInvoice" ToRole="Food" />
+    <NavigationProperty Name="Invoice" Relationship="Self.FK_DetailedInvoice_Invoice" FromRole="DetailedInvoice" ToRole="Invoice" />
+  </EntityType>
+  <EntityType Name="EntityProfile">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Entity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="OriginalType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Deleted" Type="Int32" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="Default" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="EntityProfileItems" Relationship="Self.FK_dbo_EntityProfileItem_dbo_EntityProfile_EntityProfile_ID" FromRole="EntityProfile" ToRole="EntityProfileItem" />
+  </EntityType>
+  <EntityType Name="EntityProfileItem">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Group" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Visible" Type="Boolean" Nullable="false" />
+    <Property Name="VisibleInTheGrid" Type="Boolean" Nullable="false" />
+    <Property Name="Required" Type="Boolean" Nullable="false" />
+    <Property Name="Advanced" Type="Boolean" Nullable="false" />
+    <Property Name="Searchable" Type="Boolean" Nullable="false" />
+    <Property Name="Deleted" Type="Int32" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="Default" Type="Boolean" Nullable="false" />
+    <Property Name="EntityProfile_ID" Type="Int32" />
+    <NavigationProperty Name="EntityProfile" Relationship="Self.FK_dbo_EntityProfileItem_dbo_EntityProfile_EntityProfile_ID" FromRole="EntityProfileItem" ToRole="EntityProfile" />
+  </EntityType>
+  <EntityType Name="Food">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FoodName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Double" />
+    <Property Name="IDType" Type="Int32" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_Food" FromRole="Food" ToRole="Comment" />
+    <NavigationProperty Name="DetailedInvoices" Relationship="Self.FK_DetailedInvoice_Food" FromRole="Food" ToRole="DetailedInvoice" />
+    <NavigationProperty Name="TypeOfFood" Relationship="Self.FK_Food_TypeOfFood" FromRole="Food" ToRole="TypeOfFood" />
+  </EntityType>
+  <EntityType Name="Forum">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="Deleted" Type="Int32" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="Default" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDCustomer" Type="Int32" />
+    <Property Name="TotalPrice" Type="Double" />
+    <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="PayCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DetailedInvoices" Relationship="Self.FK_DetailedInvoice_Invoice" FromRole="Invoice" ToRole="DetailedInvoice" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Invoice_User" FromRole="Invoice" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Reservation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Date" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+    <Property Name="Time" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="AmoutPerson" Type="Int32" />
+    <Property Name="NameTheBooker" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+    <Property Name="EmailTheBooker" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+    <Property Name="NumberTheBooker" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="Stuff">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="NameStuff" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="TypeOfFood">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Foods" Relationship="Self.FK_Food_TypeOfFood" FromRole="TypeOfFood" ToRole="Food" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SDT" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_User" FromRole="User" ToRole="Comment" />
+    <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoice_User" FromRole="User" ToRole="Invoice" />
+  </EntityType>
+  <Association Name="FK_Comment_Food">
+    <End Role="Food" Type="Self.Food" Multiplicity="0..1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Food">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="IDFood" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="IDCustomer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetailedInvoice_Food">
+    <End Role="Food" Type="Self.Food" Multiplicity="1" />
+    <End Role="DetailedInvoice" Type="Self.DetailedInvoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Food">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DetailedInvoice">
+        <PropertyRef Name="IDFood" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetailedInvoice_Invoice">
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+    <End Role="DetailedInvoice" Type="Self.DetailedInvoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DetailedInvoice">
+        <PropertyRef Name="IDInvoice" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_EntityProfileItem_dbo_EntityProfile_EntityProfile_ID">
+    <End Role="EntityProfile" Type="Self.EntityProfile" Multiplicity="0..1" />
+    <End Role="EntityProfileItem" Type="Self.EntityProfileItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EntityProfile">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EntityProfileItem">
+        <PropertyRef Name="EntityProfile_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Food_TypeOfFood">
+    <End Role="TypeOfFood" Type="Self.TypeOfFood" Multiplicity="0..1" />
+    <End Role="Food" Type="Self.Food" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeOfFood">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Food">
+        <PropertyRef Name="IDType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoice_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="IDCustomer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WebProjectEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+    <EntitySet Name="BasicSettings" EntityType="Self.BasicSetting" />
+    <EntitySet Name="Comments" EntityType="Self.Comment" />
+    <EntitySet Name="Contacts" EntityType="Self.Contact" />
+    <EntitySet Name="DetailedInvoices" EntityType="Self.DetailedInvoice" />
+    <EntitySet Name="EntityProfiles" EntityType="Self.EntityProfile" />
+    <EntitySet Name="EntityProfileItems" EntityType="Self.EntityProfileItem" />
+    <EntitySet Name="Foods" EntityType="Self.Food" />
+    <EntitySet Name="Fora" EntityType="Self.Forum" />
+    <EntitySet Name="Invoices" EntityType="Self.Invoice" />
+    <EntitySet Name="Reservations" EntityType="Self.Reservation" />
+    <EntitySet Name="Stuffs" EntityType="Self.Stuff" />
+    <EntitySet Name="TypeOfFoods" EntityType="Self.TypeOfFood" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_Comment_Food" Association="Self.FK_Comment_Food">
+      <End Role="Food" EntitySet="Foods" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_User" Association="Self.FK_Comment_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetailedInvoice_Food" Association="Self.FK_DetailedInvoice_Food">
+      <End Role="Food" EntitySet="Foods" />
+      <End Role="DetailedInvoice" EntitySet="DetailedInvoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetailedInvoice_Invoice" Association="Self.FK_DetailedInvoice_Invoice">
+      <End Role="Invoice" EntitySet="Invoices" />
+      <End Role="DetailedInvoice" EntitySet="DetailedInvoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_EntityProfileItem_dbo_EntityProfile_EntityProfile_ID" Association="Self.FK_dbo_EntityProfileItem_dbo_EntityProfile_EntityProfile_ID">
+      <End Role="EntityProfile" EntitySet="EntityProfiles" />
+      <End Role="EntityProfileItem" EntitySet="EntityProfileItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Food_TypeOfFood" Association="Self.FK_Food_TypeOfFood">
+      <End Role="TypeOfFood" EntitySet="TypeOfFoods" />
+      <End Role="Food" EntitySet="Foods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoice_User" Association="Self.FK_Invoice_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Invoice" EntitySet="Invoices" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -132,10 +132,57 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BasicSetting.cs">
+      <DependentUpon>xuantuDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Comment.cs">
+      <DependentUpon>xuantuDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contact.cs">
+      <DependentUpon>xuantuDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>xuantuDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DetailedInvoice.cs">
+      <DependentUpon>xuantuDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityProfile.cs">
+      <DependentUpon>xuantuDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityProfileItem.cs">
+      <DependentUpon>xuantuDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Food.cs">
+      <DependentUpon>xuantuDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Forum.cs">
+      <DependentUpon>xuantuDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Invoice.cs">
+      <DependentUpon>xuantuDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Reservation.cs">
+      <DependentUpon>xuantuDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Stuff.cs">
+      <DependentUpon>xuantuDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TypeOfFood.cs">
+      <DependentUpon>xuantuDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>xuantuDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\xuantuDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>xuantuDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\xuantuDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>xuantuDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\xuantuDB.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -156,6 +203,12 @@
     <Content Include="Models\xuantuDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>xuantuDB.Context.cs</LastGenOutput>
+      <DependentUpon>xuantuDB.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\xuantuDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>xuantuDB.edmx</DependentUpon>
+      <LastGenOutput>xuantuDB.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -163,9 +216,9 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>xuantuDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Models\xuantuDB.edmx.diagram">
+    <Content Include="Models\xuantuDB.edmx.diagram">
       <DependentUpon>xuantuDB.edmx</DependentUpon>
-    </None>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
