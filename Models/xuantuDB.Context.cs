@@ -32,12 +32,13 @@ namespace WebSpecialProject.Models
         public virtual DbSet<DetailedInvoice> DetailedInvoices { get; set; }
         public virtual DbSet<EntityProfile> EntityProfiles { get; set; }
         public virtual DbSet<EntityProfileItem> EntityProfileItems { get; set; }
-        public virtual DbSet<Food> Foods { get; set; }
         public virtual DbSet<Forum> Fora { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<Reservation> Reservations { get; set; }
         public virtual DbSet<TypeOfFood> TypeOfFoods { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<xxxxxy> xxxxxies { get; set; }
+        public virtual DbSet<Supplement> Supplements { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<TypeOfUser> TypeOfUsers { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace WebSpecialProject.Models
         public Nullable<double> IntoMoney { get; set; }
         public Nullable<int> Quantity { get; set; }
     
-        public virtual Food Food { get; set; }
         public virtual Invoice Invoice { get; set; }
+        public virtual Supplement Supplement { get; set; }
     }
 }

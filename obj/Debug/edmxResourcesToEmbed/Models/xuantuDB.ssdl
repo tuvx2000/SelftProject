@@ -81,18 +81,6 @@
     <Property Name="Default" Type="bit" Nullable="false" />
     <Property Name="EntityProfile_ID" Type="int" />
   </EntityType>
-  <EntityType Name="Food">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FoodName" Type="nvarchar" MaxLength="50" />
-    <Property Name="Price" Type="float" />
-    <Property Name="IDType" Type="int" />
-    <Property Name="Status" Type="int" />
-    <Property Name="Description" Type="nvarchar" MaxLength="50" />
-    <Property Name="Image" Type="nvarchar" MaxLength="100" />
-  </EntityType>
   <EntityType Name="Forum">
     <Key>
       <PropertyRef Name="ID" />
@@ -128,12 +116,41 @@
     <Property Name="NumberTheBooker" Type="nchar" MaxLength="30" />
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
+  <EntityType Name="Supplement">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FoodName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Price" Type="float" />
+    <Property Name="IDType" Type="int" />
+    <Property Name="Status" Type="int" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" />
+    <Property Name="Image" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="TypeOfFood">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TypeName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TypeOfUser">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeOfUser" Type="nchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -146,19 +163,13 @@
     <Property Name="Address" Type="nvarchar" MaxLength="50" />
     <Property Name="SDT" Type="nchar" MaxLength="10" />
     <Property Name="Email" Type="nvarchar" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="xxxxxy">
-    <Key>
-      <PropertyRef Name="int" />
-    </Key>
-    <Property Name="int" Type="nchar" MaxLength="10" Nullable="false" />
-    <Property Name="str" Type="nchar" MaxLength="10" />
+    <Property Name="IDType" Type="int" />
   </EntityType>
   <Association Name="FK_Comment_Food">
-    <End Role="Food" Type="Self.Food" Multiplicity="0..1" />
+    <End Role="Supplement" Type="Self.Supplement" Multiplicity="0..1" />
     <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Food">
+      <Principal Role="Supplement">
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="Comment">
@@ -191,10 +202,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_DetailedInvoice_Food">
-    <End Role="Food" Type="Self.Food" Multiplicity="1" />
+    <End Role="Supplement" Type="Self.Supplement" Multiplicity="1" />
     <End Role="DetailedInvoice" Type="Self.DetailedInvoice" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Food">
+      <Principal Role="Supplement">
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="DetailedInvoice">
@@ -216,12 +227,12 @@
   </Association>
   <Association Name="FK_Food_TypeOfFood">
     <End Role="TypeOfFood" Type="Self.TypeOfFood" Multiplicity="0..1" />
-    <End Role="Food" Type="Self.Food" Multiplicity="*" />
+    <End Role="Supplement" Type="Self.Supplement" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="TypeOfFood">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="Food">
+      <Dependent Role="Supplement">
         <PropertyRef Name="IDType" />
       </Dependent>
     </ReferentialConstraint>
@@ -238,6 +249,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_User_TypeOfUser">
+    <End Role="TypeOfUser" Type="Self.TypeOfUser" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeOfUser">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="IDType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="WebProjectModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BasicSettings" EntityType="Self.BasicSettings" Schema="dbo" store:Type="Tables" />
@@ -246,15 +269,16 @@
     <EntitySet Name="DetailedInvoice" EntityType="Self.DetailedInvoice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EntityProfile" EntityType="Self.EntityProfile" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EntityProfileItem" EntityType="Self.EntityProfileItem" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Food" EntityType="Self.Food" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Forum" EntityType="Self.Forum" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Supplement" EntityType="Self.Supplement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TypeOfFood" EntityType="Self.TypeOfFood" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TypeOfUser" EntityType="Self.TypeOfUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="xxxxxy" EntityType="Self.xxxxxy" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Comment_Food" Association="Self.FK_Comment_Food">
-      <End Role="Food" EntitySet="Food" />
+      <End Role="Supplement" EntitySet="Supplement" />
       <End Role="Comment" EntitySet="Comment" />
     </AssociationSet>
     <AssociationSet Name="FK_Comment_User" Association="Self.FK_Comment_User">
@@ -266,7 +290,7 @@
       <End Role="EntityProfileItem" EntitySet="EntityProfileItem" />
     </AssociationSet>
     <AssociationSet Name="FK_DetailedInvoice_Food" Association="Self.FK_DetailedInvoice_Food">
-      <End Role="Food" EntitySet="Food" />
+      <End Role="Supplement" EntitySet="Supplement" />
       <End Role="DetailedInvoice" EntitySet="DetailedInvoice" />
     </AssociationSet>
     <AssociationSet Name="FK_DetailedInvoice_Invoice" Association="Self.FK_DetailedInvoice_Invoice">
@@ -275,11 +299,15 @@
     </AssociationSet>
     <AssociationSet Name="FK_Food_TypeOfFood" Association="Self.FK_Food_TypeOfFood">
       <End Role="TypeOfFood" EntitySet="TypeOfFood" />
-      <End Role="Food" EntitySet="Food" />
+      <End Role="Supplement" EntitySet="Supplement" />
     </AssociationSet>
     <AssociationSet Name="FK_Invoice_User" Association="Self.FK_Invoice_User">
       <End Role="User" EntitySet="User" />
       <End Role="Invoice" EntitySet="Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_TypeOfUser" Association="Self.FK_User_TypeOfUser">
+      <End Role="TypeOfUser" EntitySet="TypeOfUser" />
+      <End Role="User" EntitySet="User" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

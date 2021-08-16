@@ -17,13 +17,13 @@ namespace WebSpecialProject.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TypeOfFood()
         {
-            this.Foods = new HashSet<Food>();
+            this.Supplements = new HashSet<Supplement>();
         }
     
         public int ID { get; set; }
         public string TypeName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Food> Foods { get; set; }
+        public virtual ICollection<Supplement> Supplements { get; set; }
     }
 }

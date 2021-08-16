@@ -31,8 +31,8 @@
     <Property Name="IDCustomer" Type="Int32" />
     <Property Name="IDFood" Type="Int32" />
     <Property Name="Comment1" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Food" Relationship="Self.FK_Comment_Food" FromRole="Comment" ToRole="Food" />
     <NavigationProperty Name="User" Relationship="Self.FK_Comment_User" FromRole="Comment" ToRole="User" />
+    <NavigationProperty Name="Supplement" Relationship="WebProjectModel.FK_Comment_Food1" FromRole="Comment" ToRole="Supplement" />
   </EntityType>
   <EntityType Name="Contact">
     <Key>
@@ -53,8 +53,8 @@
     <Property Name="IDFood" Type="Int32" Nullable="false" />
     <Property Name="IntoMoney" Type="Double" />
     <Property Name="Quantity" Type="Int32" />
-    <NavigationProperty Name="Food" Relationship="Self.FK_DetailedInvoice_Food" FromRole="DetailedInvoice" ToRole="Food" />
     <NavigationProperty Name="Invoice" Relationship="Self.FK_DetailedInvoice_Invoice" FromRole="DetailedInvoice" ToRole="Invoice" />
+    <NavigationProperty Name="Supplement" Relationship="WebProjectModel.FK_DetailedInvoice_Food1" FromRole="DetailedInvoice" ToRole="Supplement" />
   </EntityType>
   <EntityType Name="EntityProfile">
     <Key>
@@ -86,21 +86,6 @@
     <Property Name="Default" Type="Boolean" Nullable="false" />
     <Property Name="EntityProfile_ID" Type="Int32" />
     <NavigationProperty Name="EntityProfile" Relationship="Self.FK_dbo_EntityProfileItem_dbo_EntityProfile_EntityProfile_ID" FromRole="EntityProfileItem" ToRole="EntityProfile" />
-  </EntityType>
-  <EntityType Name="Food">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FoodName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Price" Type="Double" />
-    <Property Name="IDType" Type="Int32" />
-    <Property Name="Status" Type="Int32" />
-    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_Food" FromRole="Food" ToRole="Comment" />
-    <NavigationProperty Name="DetailedInvoices" Relationship="Self.FK_DetailedInvoice_Food" FromRole="Food" ToRole="DetailedInvoice" />
-    <NavigationProperty Name="TypeOfFood" Relationship="Self.FK_Food_TypeOfFood" FromRole="Food" ToRole="TypeOfFood" />
   </EntityType>
   <EntityType Name="Forum">
     <Key>
@@ -145,7 +130,7 @@
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Foods" Relationship="Self.FK_Food_TypeOfFood" FromRole="TypeOfFood" ToRole="Food" />
+    <NavigationProperty Name="Supplements" Relationship="WebProjectModel.FK_Food_TypeOfFood1" FromRole="TypeOfFood" ToRole="Supplement" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -160,19 +145,9 @@
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_User" FromRole="User" ToRole="Comment" />
     <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoice_User" FromRole="User" ToRole="Invoice" />
+    <Property Name="IDType" Type="Int32" />
+    <NavigationProperty Name="TypeOfUser" Relationship="WebProjectModel.FK_User_TypeOfUser" FromRole="User" ToRole="TypeOfUser" />
   </EntityType>
-  <Association Name="FK_Comment_Food">
-    <End Role="Food" Type="Self.Food" Multiplicity="0..1" />
-    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Food">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Comment">
-        <PropertyRef Name="IDFood" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Comment_User">
     <End Role="User" Type="Self.User" Multiplicity="0..1" />
     <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
@@ -182,18 +157,6 @@
       </Principal>
       <Dependent Role="Comment">
         <PropertyRef Name="IDCustomer" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_DetailedInvoice_Food">
-    <End Role="Food" Type="Self.Food" Multiplicity="1" />
-    <End Role="DetailedInvoice" Type="Self.DetailedInvoice" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Food">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="DetailedInvoice">
-        <PropertyRef Name="IDFood" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -221,18 +184,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Food_TypeOfFood">
-    <End Role="TypeOfFood" Type="Self.TypeOfFood" Multiplicity="0..1" />
-    <End Role="Food" Type="Self.Food" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TypeOfFood">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Food">
-        <PropertyRef Name="IDType" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Invoice_User">
     <End Role="User" Type="Self.User" Multiplicity="0..1" />
     <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
@@ -253,23 +204,14 @@
     <EntitySet Name="DetailedInvoices" EntityType="Self.DetailedInvoice" />
     <EntitySet Name="EntityProfiles" EntityType="Self.EntityProfile" />
     <EntitySet Name="EntityProfileItems" EntityType="Self.EntityProfileItem" />
-    <EntitySet Name="Foods" EntityType="Self.Food" />
     <EntitySet Name="Fora" EntityType="Self.Forum" />
     <EntitySet Name="Invoices" EntityType="Self.Invoice" />
     <EntitySet Name="Reservations" EntityType="Self.Reservation" />
     <EntitySet Name="TypeOfFoods" EntityType="Self.TypeOfFood" />
     <EntitySet Name="Users" EntityType="Self.User" />
-    <AssociationSet Name="FK_Comment_Food" Association="Self.FK_Comment_Food">
-      <End Role="Food" EntitySet="Foods" />
-      <End Role="Comment" EntitySet="Comments" />
-    </AssociationSet>
     <AssociationSet Name="FK_Comment_User" Association="Self.FK_Comment_User">
       <End Role="User" EntitySet="Users" />
       <End Role="Comment" EntitySet="Comments" />
-    </AssociationSet>
-    <AssociationSet Name="FK_DetailedInvoice_Food" Association="Self.FK_DetailedInvoice_Food">
-      <End Role="Food" EntitySet="Foods" />
-      <End Role="DetailedInvoice" EntitySet="DetailedInvoices" />
     </AssociationSet>
     <AssociationSet Name="FK_DetailedInvoice_Invoice" Association="Self.FK_DetailedInvoice_Invoice">
       <End Role="Invoice" EntitySet="Invoices" />
@@ -279,21 +221,109 @@
       <End Role="EntityProfile" EntitySet="EntityProfiles" />
       <End Role="EntityProfileItem" EntitySet="EntityProfileItems" />
     </AssociationSet>
-    <AssociationSet Name="FK_Food_TypeOfFood" Association="Self.FK_Food_TypeOfFood">
-      <End Role="TypeOfFood" EntitySet="TypeOfFoods" />
-      <End Role="Food" EntitySet="Foods" />
-    </AssociationSet>
     <AssociationSet Name="FK_Invoice_User" Association="Self.FK_Invoice_User">
       <End Role="User" EntitySet="Users" />
       <End Role="Invoice" EntitySet="Invoices" />
     </AssociationSet>
-    <EntitySet Name="xxxxxies" EntityType="WebProjectModel.xxxxxy" />
+    <EntitySet Name="Supplements" EntityType="WebProjectModel.Supplement" />
+    <EntitySet Name="sysdiagrams" EntityType="WebProjectModel.sysdiagram" />
+    <EntitySet Name="TypeOfUsers" EntityType="WebProjectModel.TypeOfUser" />
+    <AssociationSet Name="FK_Comment_Food1" Association="WebProjectModel.FK_Comment_Food1">
+      <End Role="Supplement" EntitySet="Supplements" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetailedInvoice_Food1" Association="WebProjectModel.FK_DetailedInvoice_Food1">
+      <End Role="Supplement" EntitySet="Supplements" />
+      <End Role="DetailedInvoice" EntitySet="DetailedInvoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Food_TypeOfFood1" Association="WebProjectModel.FK_Food_TypeOfFood1">
+      <End Role="TypeOfFood" EntitySet="TypeOfFoods" />
+      <End Role="Supplement" EntitySet="Supplements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_TypeOfUser" Association="WebProjectModel.FK_User_TypeOfUser">
+      <End Role="TypeOfUser" EntitySet="TypeOfUsers" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
   </EntityContainer>
-  <EntityType Name="xxxxxy">
+  <EntityType Name="Supplement">
     <Key>
-      <PropertyRef Name="int" />
+      <PropertyRef Name="ID" />
     </Key>
-    <Property Name="int" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Name="str" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FoodName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Double" />
+    <Property Name="IDType" Type="Int32" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Comments" Relationship="WebProjectModel.FK_Comment_Food1" FromRole="Supplement" ToRole="Comment" />
+    <NavigationProperty Name="DetailedInvoices" Relationship="WebProjectModel.FK_DetailedInvoice_Food1" FromRole="Supplement" ToRole="DetailedInvoice" />
+    <NavigationProperty Name="TypeOfFood" Relationship="WebProjectModel.FK_Food_TypeOfFood1" FromRole="Supplement" ToRole="TypeOfFood" />
   </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TypeOfUser">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeOfUser1" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Users" Relationship="WebProjectModel.FK_User_TypeOfUser" FromRole="TypeOfUser" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_Comment_Food1">
+    <End Type="WebProjectModel.Supplement" Role="Supplement" Multiplicity="0..1" />
+    <End Type="WebProjectModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplement">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="IDFood" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetailedInvoice_Food1">
+    <End Type="WebProjectModel.Supplement" Role="Supplement" Multiplicity="1" />
+    <End Type="WebProjectModel.DetailedInvoice" Role="DetailedInvoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplement">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DetailedInvoice">
+        <PropertyRef Name="IDFood" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Food_TypeOfFood1">
+    <End Type="WebProjectModel.TypeOfFood" Role="TypeOfFood" Multiplicity="0..1" />
+    <End Type="WebProjectModel.Supplement" Role="Supplement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeOfFood">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Supplement">
+        <PropertyRef Name="IDType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_TypeOfUser">
+    <End Type="WebProjectModel.TypeOfUser" Role="TypeOfUser" Multiplicity="0..1" />
+    <End Type="WebProjectModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeOfUser">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="IDType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

@@ -13,7 +13,7 @@ namespace WebSpecialProject.Controllers
 
         public ActionResult Index()
         {
-            var list = dbcontext.Foods.ToList();
+            var list = dbcontext.Supplements.ToList();
             var x = list[0];
             var y = x.FoodName;
             return View(list);

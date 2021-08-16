@@ -47,7 +47,16 @@
                             <li class="scroll-to-section"><a href="#our-classes">Classes</a></li>
                             <li class="scroll-to-section"><a href="#schedule">Schedules</a></li>
                             <li class="scroll-to-section"><a href="#contact-us">Contact</a></li>
-                            <li class="main-button"><a href="#">Sign Up</a></li>
+                            @{
+                                var text = "Sign Up";
+                                var hre = "/Login/Login";
+                                var cart_show = "none";
+
+                                if (Session["Status"] != null) { text = "Sign Out"; hre = "/Login/Logout"; cart_show = "normal"; }
+                            }
+                            <li class="main-button"><a href=@hre>@text</a></li>
+
+
                         </ul>
                         <a class='menu-trigger'>
                             <span>Menu</span>
