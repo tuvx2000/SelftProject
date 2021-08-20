@@ -12,24 +12,18 @@ namespace WebSpecialProject.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class TypeOfProduct
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public TypeOfProduct()
         {
-            this.Orders = new HashSet<Order>();
+            this.ProductToSells = new HashSet<ProductToSell>();
         }
     
         public int ID { get; set; }
-        public string UserName { get; set; }
-        public string PassWord { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public string SDT { get; set; }
-        public string Email { get; set; }
-        public Nullable<int> IDType { get; set; }
+        public string TypeName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<ProductToSell> ProductToSells { get; set; }
     }
 }

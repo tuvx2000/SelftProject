@@ -12,11 +12,14 @@ namespace WebSpecialProject.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class DetailedInvoice
+    public partial class ProductOnCart
     {
-        public int IDInvoice { get; set; }
-        public int IDFood { get; set; }
-        public Nullable<double> IntoMoney { get; set; }
-        public Nullable<int> Quantity { get; set; }
+        public int ID { get; set; }
+        public Nullable<int> QuantityOnCart { get; set; }
+        public int IdCart { get; set; }
+        public string Status { get; set; }
+        public int IdProduct { get; set; }
+    
+        public virtual Cart Cart { get; set; }
     }
 }

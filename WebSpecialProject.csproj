@@ -128,18 +128,21 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ProductOnCartsController.cs" />
+    <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BasicSetting.cs">
       <DependentUpon>xuantuDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Comment.cs">
+    <Compile Include="Models\Cart.cs">
       <DependentUpon>xuantuDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Contact.cs">
+    <Compile Include="Models\Comment.cs">
       <DependentUpon>xuantuDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C__MigrationHistory.cs">
@@ -148,28 +151,28 @@
     <Compile Include="Models\DetailedInvoice.cs">
       <DependentUpon>xuantuDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EntityProfile.cs">
+    <Compile Include="Models\Order.cs">
       <DependentUpon>xuantuDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EntityProfileItem.cs">
+    <Compile Include="Models\ProductOnCart.cs">
       <DependentUpon>xuantuDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Forum.cs">
-      <DependentUpon>xuantuDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Invoice.cs">
+    <Compile Include="Models\ProductToSell.cs">
       <DependentUpon>xuantuDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Reservation.cs">
       <DependentUpon>xuantuDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Supplement.cs">
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>xuantuDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>xuantuDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>xuantuDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TypeOfFood.cs">
+    <Compile Include="Models\TypeOfProduct.cs">
       <DependentUpon>xuantuDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TypeOfUser.cs">
@@ -428,6 +431,17 @@
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\ProductOnCarts\Create.cshtml" />
+    <Content Include="Views\ProductOnCarts\Delete.cshtml" />
+    <Content Include="Views\ProductOnCarts\Details.cshtml" />
+    <Content Include="Views\ProductOnCarts\Edit.cshtml" />
+    <Content Include="Views\ProductOnCarts\Index.cshtml" />
+    <Content Include="Views\Store\Create.cshtml" />
+    <Content Include="Views\Store\Delete.cshtml" />
+    <Content Include="Views\Store\Details.cshtml" />
+    <Content Include="Views\Store\Edit.cshtml" />
+    <Content Include="Views\Store\Index.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

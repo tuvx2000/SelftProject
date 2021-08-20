@@ -23,6 +23,14 @@
     <Property Name="Active" Type="bit" Nullable="false" />
     <Property Name="Default" Type="bit" Nullable="false" />
   </EntityType>
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TotalCost" Type="float" />
+    <Property Name="IdUser" Type="int" />
+  </EntityType>
   <EntityType Name="Comment">
     <Key>
       <PropertyRef Name="ID" />
@@ -31,16 +39,6 @@
     <Property Name="IDCustomer" Type="int" />
     <Property Name="IDFood" Type="int" />
     <Property Name="Comment" Type="nvarchar" MaxLength="250" />
-  </EntityType>
-  <EntityType Name="Contact">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="50" />
-    <Property Name="Email" Type="nvarchar" MaxLength="50" />
-    <Property Name="Title" Type="nvarchar" MaxLength="50" />
-    <Property Name="Comment" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="DetailedInvoice">
     <Key>
@@ -52,57 +50,39 @@
     <Property Name="IntoMoney" Type="float" />
     <Property Name="Quantity" Type="int" />
   </EntityType>
-  <EntityType Name="EntityProfile">
+  <EntityType Name="Order">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="Entity" Type="nvarchar(max)" />
-    <Property Name="OriginalType" Type="nvarchar(max)" />
-    <Property Name="Deleted" Type="int" Nullable="false" />
-    <Property Name="Active" Type="bit" Nullable="false" />
-    <Property Name="Default" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="EntityProfileItem">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" />
-    <Property Name="Group" Type="nvarchar(max)" />
-    <Property Name="Visible" Type="bit" Nullable="false" />
-    <Property Name="VisibleInTheGrid" Type="bit" Nullable="false" />
-    <Property Name="Required" Type="bit" Nullable="false" />
-    <Property Name="Advanced" Type="bit" Nullable="false" />
-    <Property Name="Searchable" Type="bit" Nullable="false" />
-    <Property Name="Deleted" Type="int" Nullable="false" />
-    <Property Name="Active" Type="bit" Nullable="false" />
-    <Property Name="Default" Type="bit" Nullable="false" />
-    <Property Name="EntityProfile_ID" Type="int" />
-  </EntityType>
-  <EntityType Name="Forum">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Description" Type="nvarchar(max)" />
-    <Property Name="UpdateDate" Type="datetime2" Precision="7" Nullable="false" />
-    <Property Name="Deleted" Type="int" Nullable="false" />
-    <Property Name="Active" Type="bit" Nullable="false" />
-    <Property Name="Default" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Invoice">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="IDCustomer" Type="int" />
-    <Property Name="TotalPrice" Type="float" />
-    <Property Name="Note" Type="nvarchar" MaxLength="100" />
-    <Property Name="Date" Type="datetime" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Adress" Type="nvarchar" MaxLength="50" />
+    <Property Name="TimeBought" Type="nvarchar" MaxLength="50" />
     <Property Name="Status" Type="int" />
-    <Property Name="PayCode" Type="nvarchar" MaxLength="100" />
+    <Property Name="IdCart" Type="int" />
+  </EntityType>
+  <EntityType Name="ProductOnCart">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QuantityOnCart" Type="int" />
+    <Property Name="IdCart" Type="int" Nullable="false" />
+    <Property Name="Status" Type="nchar" MaxLength="10" />
+    <Property Name="IdProduct" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductToSell">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Price" Type="float" />
+    <Property Name="IDType" Type="int" Nullable="false" />
+    <Property Name="QuanlityRemain" Type="int" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" />
+    <Property Name="Image" Type="nvarchar" MaxLength="100" />
+    <Property Name="Origin" Type="nchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="Reservation">
     <Key>
@@ -116,18 +96,6 @@
     <Property Name="NumberTheBooker" Type="nchar" MaxLength="30" />
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
-  <EntityType Name="Supplement">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FoodName" Type="nvarchar" MaxLength="50" />
-    <Property Name="Price" Type="float" />
-    <Property Name="IDType" Type="int" />
-    <Property Name="Status" Type="int" />
-    <Property Name="Description" Type="nvarchar" MaxLength="50" />
-    <Property Name="Image" Type="nvarchar" MaxLength="100" />
-  </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
       <PropertyRef Name="diagram_id" />
@@ -138,7 +106,7 @@
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
-  <EntityType Name="TypeOfFood">
+  <EntityType Name="TypeOfProduct">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
@@ -165,149 +133,114 @@
     <Property Name="Email" Type="nvarchar" MaxLength="50" />
     <Property Name="IDType" Type="int" />
   </EntityType>
-  <Association Name="FK_Comment_Food">
-    <End Role="Supplement" Type="Self.Supplement" Multiplicity="0..1" />
-    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+  <Association Name="FK_Order_Cart">
+    <End Role="Cart" Type="Self.Cart" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Supplement">
+      <Principal Role="Cart">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="Comment">
-        <PropertyRef Name="IDFood" />
+      <Dependent Role="Order">
+        <PropertyRef Name="IdCart" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Comment_User">
+  <Association Name="FK_Order_User">
     <End Role="User" Type="Self.User" Multiplicity="0..1" />
-    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="Comment">
-        <PropertyRef Name="IDCustomer" />
+      <Dependent Role="Order">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_dbo_EntityProfileItem_dbo_EntityProfile_EntityProfile_ID">
-    <End Role="EntityProfile" Type="Self.EntityProfile" Multiplicity="0..1" />
-    <End Role="EntityProfileItem" Type="Self.EntityProfileItem" Multiplicity="*" />
+  <Association Name="FK_ProductOnCart_Cart">
+    <End Role="Cart" Type="Self.Cart" Multiplicity="1" />
+    <End Role="ProductOnCart" Type="Self.ProductOnCart" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="EntityProfile">
+      <Principal Role="Cart">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="EntityProfileItem">
-        <PropertyRef Name="EntityProfile_ID" />
+      <Dependent Role="ProductOnCart">
+        <PropertyRef Name="IdCart" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_DetailedInvoice_Food">
-    <End Role="Supplement" Type="Self.Supplement" Multiplicity="1" />
-    <End Role="DetailedInvoice" Type="Self.DetailedInvoice" Multiplicity="*" />
+  <Association Name="FK_ProductToSell_TypeOfProduct">
+    <End Role="TypeOfProduct" Type="Self.TypeOfProduct" Multiplicity="1" />
+    <End Role="ProductToSell" Type="Self.ProductToSell" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Supplement">
+      <Principal Role="TypeOfProduct">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="DetailedInvoice">
-        <PropertyRef Name="IDFood" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_DetailedInvoice_Invoice">
-    <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
-    <End Role="DetailedInvoice" Type="Self.DetailedInvoice" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Invoice">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="DetailedInvoice">
-        <PropertyRef Name="IDInvoice" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Food_TypeOfFood">
-    <End Role="TypeOfFood" Type="Self.TypeOfFood" Multiplicity="0..1" />
-    <End Role="Supplement" Type="Self.Supplement" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TypeOfFood">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Supplement">
+      <Dependent Role="ProductToSell">
         <PropertyRef Name="IDType" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Invoice_User">
-    <End Role="User" Type="Self.User" Multiplicity="0..1" />
-    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Invoice">
-        <PropertyRef Name="IDCustomer" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_User_TypeOfUser">
-    <End Role="TypeOfUser" Type="Self.TypeOfUser" Multiplicity="0..1" />
-    <End Role="User" Type="Self.User" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TypeOfUser">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="IDType" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="WebProjectModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BasicSettings" EntityType="Self.BasicSettings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DetailedInvoice" EntityType="Self.DetailedInvoice" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="EntityProfile" EntityType="Self.EntityProfile" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="EntityProfileItem" EntityType="Self.EntityProfileItem" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Forum" EntityType="Self.Forum" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductOnCart" EntityType="Self.ProductOnCart" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductToSell" EntityType="Self.ProductToSell" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Supplement" EntityType="Self.Supplement" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="TypeOfFood" EntityType="Self.TypeOfFood" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TypeOfProduct" EntityType="Self.TypeOfProduct" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TypeOfUser" EntityType="Self.TypeOfUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_Comment_Food" Association="Self.FK_Comment_Food">
-      <End Role="Supplement" EntitySet="Supplement" />
-      <End Role="Comment" EntitySet="Comment" />
+    <AssociationSet Name="FK_Order_Cart" Association="Self.FK_Order_Cart">
+      <End Role="Cart" EntitySet="Cart" />
+      <End Role="Order" EntitySet="Order" />
     </AssociationSet>
-    <AssociationSet Name="FK_Comment_User" Association="Self.FK_Comment_User">
+    <AssociationSet Name="FK_Order_User" Association="Self.FK_Order_User">
       <End Role="User" EntitySet="User" />
-      <End Role="Comment" EntitySet="Comment" />
+      <End Role="Order" EntitySet="Order" />
     </AssociationSet>
-    <AssociationSet Name="FK_dbo_EntityProfileItem_dbo_EntityProfile_EntityProfile_ID" Association="Self.FK_dbo_EntityProfileItem_dbo_EntityProfile_EntityProfile_ID">
-      <End Role="EntityProfile" EntitySet="EntityProfile" />
-      <End Role="EntityProfileItem" EntitySet="EntityProfileItem" />
+    <AssociationSet Name="FK_ProductOnCart_Cart" Association="Self.FK_ProductOnCart_Cart">
+      <End Role="Cart" EntitySet="Cart" />
+      <End Role="ProductOnCart" EntitySet="ProductOnCart" />
     </AssociationSet>
-    <AssociationSet Name="FK_DetailedInvoice_Food" Association="Self.FK_DetailedInvoice_Food">
-      <End Role="Supplement" EntitySet="Supplement" />
-      <End Role="DetailedInvoice" EntitySet="DetailedInvoice" />
-    </AssociationSet>
-    <AssociationSet Name="FK_DetailedInvoice_Invoice" Association="Self.FK_DetailedInvoice_Invoice">
-      <End Role="Invoice" EntitySet="Invoice" />
-      <End Role="DetailedInvoice" EntitySet="DetailedInvoice" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Food_TypeOfFood" Association="Self.FK_Food_TypeOfFood">
-      <End Role="TypeOfFood" EntitySet="TypeOfFood" />
-      <End Role="Supplement" EntitySet="Supplement" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Invoice_User" Association="Self.FK_Invoice_User">
-      <End Role="User" EntitySet="User" />
-      <End Role="Invoice" EntitySet="Invoice" />
-    </AssociationSet>
-    <AssociationSet Name="FK_User_TypeOfUser" Association="Self.FK_User_TypeOfUser">
-      <End Role="TypeOfUser" EntitySet="TypeOfUser" />
-      <End Role="User" EntitySet="User" />
+    <AssociationSet Name="FK_ProductToSell_TypeOfProduct" Association="Self.FK_ProductToSell_TypeOfProduct">
+      <End Role="TypeOfProduct" EntitySet="TypeOfProduct" />
+      <End Role="ProductToSell" EntitySet="ProductToSell" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

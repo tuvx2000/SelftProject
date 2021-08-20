@@ -1,14 +1,86 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="WebProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="WebProjectEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(WebProjectModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(WebProjectModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="C__MigrationHistory" EntityType="WebProjectModel.C__MigrationHistory" />
+    <EntitySet Name="BasicSettings" EntityType="WebProjectModel.BasicSetting" />
+    <EntitySet Name="Carts" EntityType="WebProjectModel.Cart" />
+    <EntitySet Name="Comments" EntityType="WebProjectModel.Comment" />
+    <EntitySet Name="DetailedInvoices" EntityType="WebProjectModel.DetailedInvoice" />
+    <EntitySet Name="Orders" EntityType="WebProjectModel.Order" />
+    <EntitySet Name="ProductOnCarts" EntityType="WebProjectModel.ProductOnCart" />
+    <EntitySet Name="ProductToSells" EntityType="WebProjectModel.ProductToSell" />
+    <EntitySet Name="Reservations" EntityType="WebProjectModel.Reservation" />
+    <EntitySet Name="sysdiagrams" EntityType="WebProjectModel.sysdiagram" />
+    <EntitySet Name="TypeOfProducts" EntityType="WebProjectModel.TypeOfProduct" />
+    <EntitySet Name="TypeOfUsers" EntityType="WebProjectModel.TypeOfUser" />
+    <EntitySet Name="Users" EntityType="WebProjectModel.User" />
+    <AssociationSet Name="FK_Order_Cart" Association="WebProjectModel.FK_Order_Cart">
+      <End Role="Cart" EntitySet="Carts" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductOnCart_Cart" Association="WebProjectModel.FK_ProductOnCart_Cart">
+      <End Role="Cart" EntitySet="Carts" />
+      <End Role="ProductOnCart" EntitySet="ProductOnCarts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_User" Association="WebProjectModel.FK_Order_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductToSell_TypeOfProduct" Association="WebProjectModel.FK_ProductToSell_TypeOfProduct">
+      <End Role="TypeOfProduct" EntitySet="TypeOfProducts" />
+      <End Role="ProductToSell" EntitySet="ProductToSells" />
+    </AssociationSet>
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
   <EntityType Name="C__MigrationHistory">
     <Key>
       <PropertyRef Name="MigrationId" />
       <PropertyRef Name="ContextKey" />
     </Key>
-    <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-    <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="BasicSetting">
     <Key>
@@ -23,6 +95,16 @@
     <Property Name="Active" Type="Boolean" Nullable="false" />
     <Property Name="Default" Type="Boolean" Nullable="false" />
   </EntityType>
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TotalCost" Type="Double" />
+    <Property Name="IdUser" Type="Int32" />
+    <NavigationProperty Name="Orders" Relationship="WebProjectModel.FK_Order_Cart" FromRole="Cart" ToRole="Order" />
+    <NavigationProperty Name="ProductOnCarts" Relationship="WebProjectModel.FK_ProductOnCart_Cart" FromRole="Cart" ToRole="ProductOnCart" />
+  </EntityType>
   <EntityType Name="Comment">
     <Key>
       <PropertyRef Name="ID" />
@@ -31,18 +113,6 @@
     <Property Name="IDCustomer" Type="Int32" />
     <Property Name="IDFood" Type="Int32" />
     <Property Name="Comment1" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="User" Relationship="Self.FK_Comment_User" FromRole="Comment" ToRole="User" />
-    <NavigationProperty Name="Supplement" Relationship="WebProjectModel.FK_Comment_Food1" FromRole="Comment" ToRole="Supplement" />
-  </EntityType>
-  <EntityType Name="Contact">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="DetailedInvoice">
     <Key>
@@ -53,64 +123,44 @@
     <Property Name="IDFood" Type="Int32" Nullable="false" />
     <Property Name="IntoMoney" Type="Double" />
     <Property Name="Quantity" Type="Int32" />
-    <NavigationProperty Name="Invoice" Relationship="Self.FK_DetailedInvoice_Invoice" FromRole="DetailedInvoice" ToRole="Invoice" />
-    <NavigationProperty Name="Supplement" Relationship="WebProjectModel.FK_DetailedInvoice_Food1" FromRole="DetailedInvoice" ToRole="Supplement" />
   </EntityType>
-  <EntityType Name="EntityProfile">
+  <EntityType Name="Order">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Entity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="OriginalType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Deleted" Type="Int32" Nullable="false" />
-    <Property Name="Active" Type="Boolean" Nullable="false" />
-    <Property Name="Default" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="EntityProfileItems" Relationship="Self.FK_dbo_EntityProfileItem_dbo_EntityProfile_EntityProfile_ID" FromRole="EntityProfile" ToRole="EntityProfileItem" />
-  </EntityType>
-  <EntityType Name="EntityProfileItem">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Group" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Visible" Type="Boolean" Nullable="false" />
-    <Property Name="VisibleInTheGrid" Type="Boolean" Nullable="false" />
-    <Property Name="Required" Type="Boolean" Nullable="false" />
-    <Property Name="Advanced" Type="Boolean" Nullable="false" />
-    <Property Name="Searchable" Type="Boolean" Nullable="false" />
-    <Property Name="Deleted" Type="Int32" Nullable="false" />
-    <Property Name="Active" Type="Boolean" Nullable="false" />
-    <Property Name="Default" Type="Boolean" Nullable="false" />
-    <Property Name="EntityProfile_ID" Type="Int32" />
-    <NavigationProperty Name="EntityProfile" Relationship="Self.FK_dbo_EntityProfileItem_dbo_EntityProfile_EntityProfile_ID" FromRole="EntityProfileItem" ToRole="EntityProfile" />
-  </EntityType>
-  <EntityType Name="Forum">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="7" />
-    <Property Name="Deleted" Type="Int32" Nullable="false" />
-    <Property Name="Active" Type="Boolean" Nullable="false" />
-    <Property Name="Default" Type="Boolean" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Invoice">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="IDCustomer" Type="Int32" />
-    <Property Name="TotalPrice" Type="Double" />
-    <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TimeBought" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Status" Type="Int32" />
-    <Property Name="PayCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="DetailedInvoices" Relationship="Self.FK_DetailedInvoice_Invoice" FromRole="Invoice" ToRole="DetailedInvoice" />
-    <NavigationProperty Name="User" Relationship="Self.FK_Invoice_User" FromRole="Invoice" ToRole="User" />
+    <Property Name="IdCart" Type="Int32" />
+    <NavigationProperty Name="Cart" Relationship="WebProjectModel.FK_Order_Cart" FromRole="Order" ToRole="Cart" />
+    <NavigationProperty Name="User" Relationship="WebProjectModel.FK_Order_User" FromRole="Order" ToRole="User" />
+  </EntityType>
+  <EntityType Name="ProductOnCart">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QuantityOnCart" Type="Int32" />
+    <Property Name="IdCart" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="IdProduct" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Cart" Relationship="WebProjectModel.FK_ProductOnCart_Cart" FromRole="ProductOnCart" ToRole="Cart" />
+  </EntityType>
+  <EntityType Name="ProductToSell">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Double" />
+    <Property Name="IDType" Type="Int32" Nullable="false" />
+    <Property Name="QuanlityRemain" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Origin" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="TypeOfProduct" Relationship="WebProjectModel.FK_ProductToSell_TypeOfProduct" FromRole="ProductToSell" ToRole="TypeOfProduct" />
   </EntityType>
   <EntityType Name="Reservation">
     <Key>
@@ -124,13 +174,30 @@
     <Property Name="NumberTheBooker" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
   </EntityType>
-  <EntityType Name="TypeOfFood">
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TypeOfProduct">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Supplements" Relationship="WebProjectModel.FK_Food_TypeOfFood1" FromRole="TypeOfFood" ToRole="Supplement" />
+    <NavigationProperty Name="ProductToSells" Relationship="WebProjectModel.FK_ProductToSell_TypeOfProduct" FromRole="TypeOfProduct" ToRole="ProductToSell" />
+  </EntityType>
+  <EntityType Name="TypeOfUser">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeOfUser1" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -143,185 +210,53 @@
     <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="SDT" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_User" FromRole="User" ToRole="Comment" />
-    <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoice_User" FromRole="User" ToRole="Invoice" />
     <Property Name="IDType" Type="Int32" />
-    <NavigationProperty Name="TypeOfUser" Relationship="WebProjectModel.FK_User_TypeOfUser" FromRole="User" ToRole="TypeOfUser" />
+    <NavigationProperty Name="Orders" Relationship="WebProjectModel.FK_Order_User" FromRole="User" ToRole="Order" />
   </EntityType>
-  <Association Name="FK_Comment_User">
-    <End Role="User" Type="Self.User" Multiplicity="0..1" />
-    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+  <Association Name="FK_Order_Cart">
+    <End Type="WebProjectModel.Cart" Role="Cart" Multiplicity="0..1" />
+    <End Type="WebProjectModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cart">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="IdCart" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductOnCart_Cart">
+    <End Type="WebProjectModel.Cart" Role="Cart" Multiplicity="1" />
+    <End Type="WebProjectModel.ProductOnCart" Role="ProductOnCart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cart">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProductOnCart">
+        <PropertyRef Name="IdCart" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_User">
+    <End Type="WebProjectModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="WebProjectModel.Order" Role="Order" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="Comment">
-        <PropertyRef Name="IDCustomer" />
+      <Dependent Role="Order">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_DetailedInvoice_Invoice">
-    <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
-    <End Role="DetailedInvoice" Type="Self.DetailedInvoice" Multiplicity="*" />
+  <Association Name="FK_ProductToSell_TypeOfProduct">
+    <End Type="WebProjectModel.TypeOfProduct" Role="TypeOfProduct" Multiplicity="1" />
+    <End Type="WebProjectModel.ProductToSell" Role="ProductToSell" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Invoice">
+      <Principal Role="TypeOfProduct">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="DetailedInvoice">
-        <PropertyRef Name="IDInvoice" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_dbo_EntityProfileItem_dbo_EntityProfile_EntityProfile_ID">
-    <End Role="EntityProfile" Type="Self.EntityProfile" Multiplicity="0..1" />
-    <End Role="EntityProfileItem" Type="Self.EntityProfileItem" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="EntityProfile">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="EntityProfileItem">
-        <PropertyRef Name="EntityProfile_ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Invoice_User">
-    <End Role="User" Type="Self.User" Multiplicity="0..1" />
-    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Invoice">
-        <PropertyRef Name="IDCustomer" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityContainer Name="WebProjectEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
-    <EntitySet Name="BasicSettings" EntityType="Self.BasicSetting" />
-    <EntitySet Name="Comments" EntityType="Self.Comment" />
-    <EntitySet Name="Contacts" EntityType="Self.Contact" />
-    <EntitySet Name="DetailedInvoices" EntityType="Self.DetailedInvoice" />
-    <EntitySet Name="EntityProfiles" EntityType="Self.EntityProfile" />
-    <EntitySet Name="EntityProfileItems" EntityType="Self.EntityProfileItem" />
-    <EntitySet Name="Fora" EntityType="Self.Forum" />
-    <EntitySet Name="Invoices" EntityType="Self.Invoice" />
-    <EntitySet Name="Reservations" EntityType="Self.Reservation" />
-    <EntitySet Name="TypeOfFoods" EntityType="Self.TypeOfFood" />
-    <EntitySet Name="Users" EntityType="Self.User" />
-    <AssociationSet Name="FK_Comment_User" Association="Self.FK_Comment_User">
-      <End Role="User" EntitySet="Users" />
-      <End Role="Comment" EntitySet="Comments" />
-    </AssociationSet>
-    <AssociationSet Name="FK_DetailedInvoice_Invoice" Association="Self.FK_DetailedInvoice_Invoice">
-      <End Role="Invoice" EntitySet="Invoices" />
-      <End Role="DetailedInvoice" EntitySet="DetailedInvoices" />
-    </AssociationSet>
-    <AssociationSet Name="FK_dbo_EntityProfileItem_dbo_EntityProfile_EntityProfile_ID" Association="Self.FK_dbo_EntityProfileItem_dbo_EntityProfile_EntityProfile_ID">
-      <End Role="EntityProfile" EntitySet="EntityProfiles" />
-      <End Role="EntityProfileItem" EntitySet="EntityProfileItems" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Invoice_User" Association="Self.FK_Invoice_User">
-      <End Role="User" EntitySet="Users" />
-      <End Role="Invoice" EntitySet="Invoices" />
-    </AssociationSet>
-    <EntitySet Name="Supplements" EntityType="WebProjectModel.Supplement" />
-    <EntitySet Name="sysdiagrams" EntityType="WebProjectModel.sysdiagram" />
-    <EntitySet Name="TypeOfUsers" EntityType="WebProjectModel.TypeOfUser" />
-    <AssociationSet Name="FK_Comment_Food1" Association="WebProjectModel.FK_Comment_Food1">
-      <End Role="Supplement" EntitySet="Supplements" />
-      <End Role="Comment" EntitySet="Comments" />
-    </AssociationSet>
-    <AssociationSet Name="FK_DetailedInvoice_Food1" Association="WebProjectModel.FK_DetailedInvoice_Food1">
-      <End Role="Supplement" EntitySet="Supplements" />
-      <End Role="DetailedInvoice" EntitySet="DetailedInvoices" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Food_TypeOfFood1" Association="WebProjectModel.FK_Food_TypeOfFood1">
-      <End Role="TypeOfFood" EntitySet="TypeOfFoods" />
-      <End Role="Supplement" EntitySet="Supplements" />
-    </AssociationSet>
-    <AssociationSet Name="FK_User_TypeOfUser" Association="WebProjectModel.FK_User_TypeOfUser">
-      <End Role="TypeOfUser" EntitySet="TypeOfUsers" />
-      <End Role="User" EntitySet="Users" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="Supplement">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FoodName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Price" Type="Double" />
-    <Property Name="IDType" Type="Int32" />
-    <Property Name="Status" Type="Int32" />
-    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Comments" Relationship="WebProjectModel.FK_Comment_Food1" FromRole="Supplement" ToRole="Comment" />
-    <NavigationProperty Name="DetailedInvoices" Relationship="WebProjectModel.FK_DetailedInvoice_Food1" FromRole="Supplement" ToRole="DetailedInvoice" />
-    <NavigationProperty Name="TypeOfFood" Relationship="WebProjectModel.FK_Food_TypeOfFood1" FromRole="Supplement" ToRole="TypeOfFood" />
-  </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
-  <EntityType Name="TypeOfUser">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="TypeOfUser1" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-    <NavigationProperty Name="Users" Relationship="WebProjectModel.FK_User_TypeOfUser" FromRole="TypeOfUser" ToRole="User" />
-  </EntityType>
-  <Association Name="FK_Comment_Food1">
-    <End Type="WebProjectModel.Supplement" Role="Supplement" Multiplicity="0..1" />
-    <End Type="WebProjectModel.Comment" Role="Comment" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Supplement">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Comment">
-        <PropertyRef Name="IDFood" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_DetailedInvoice_Food1">
-    <End Type="WebProjectModel.Supplement" Role="Supplement" Multiplicity="1" />
-    <End Type="WebProjectModel.DetailedInvoice" Role="DetailedInvoice" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Supplement">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="DetailedInvoice">
-        <PropertyRef Name="IDFood" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Food_TypeOfFood1">
-    <End Type="WebProjectModel.TypeOfFood" Role="TypeOfFood" Multiplicity="0..1" />
-    <End Type="WebProjectModel.Supplement" Role="Supplement" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TypeOfFood">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Supplement">
-        <PropertyRef Name="IDType" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_User_TypeOfUser">
-    <End Type="WebProjectModel.TypeOfUser" Role="TypeOfUser" Multiplicity="0..1" />
-    <End Type="WebProjectModel.User" Role="User" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TypeOfUser">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="User">
+      <Dependent Role="ProductToSell">
         <PropertyRef Name="IDType" />
       </Dependent>
     </ReferentialConstraint>

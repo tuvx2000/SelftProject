@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
-@model IEnumerable<WebSpecialProject.Models.Supplement>
+@model IEnumerable<WebSpecialProject.Models.ProductToSell>
 
 <!-- ***** Preloader Start *****
 <div id="js-preloader" class="js-preloader">
@@ -419,7 +419,7 @@
 
 @foreach (var item in Model)
 {
-    @Html.DisplayFor(modelItem => item.FoodName)
+    @Html.DisplayFor(modelItem => item.ProductName)
     <br />
     @Html.DisplayFor(modelItem => item.Price)
 

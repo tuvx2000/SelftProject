@@ -1,0 +1,86 @@
+﻿@model IEnumerable<WebSpecialProject.Models.ProductToSell>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QuanlityRemain)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Origin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeOfProduct.TypeName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuanlityRemain)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Origin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeOfProduct.TypeName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                <form method="POST" action="~/Store/AddToCart">
+                    <div class="form-group" style="display:none">
+                        <input type="text" value=@item.ID name="IdProduct" />
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="QuantityToSell" id="your_pass" />
+                    </div>
+
+                    <div class="form-group form-button">
+                        <input type="submit" class="form-submit" value="Buy @item.ProductName" />
+                    </div>
+                </form>
+            </td>
+        </tr>
+
+
+
+    }
+
+</table>

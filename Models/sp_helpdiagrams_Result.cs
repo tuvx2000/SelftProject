@@ -10,13 +10,13 @@
 namespace WebSpecialProject.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class DetailedInvoice
+    public partial class sp_helpdiagrams_Result
     {
-        public int IDInvoice { get; set; }
-        public int IDFood { get; set; }
-        public Nullable<double> IntoMoney { get; set; }
-        public Nullable<int> Quantity { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

@@ -18,8 +18,5 @@ namespace WebSpecialProject.Models
         public Nullable<int> IDCustomer { get; set; }
         public Nullable<int> IDFood { get; set; }
         public string Comment1 { get; set; }
-    
-        public virtual User User { get; set; }
-        public virtual Supplement Supplement { get; set; }
     }
 }
