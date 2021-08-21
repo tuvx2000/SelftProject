@@ -24,11 +24,14 @@ namespace WebSpecialProject.Controllers
         [HttpPost]
         public ActionResult AddToCart(FormCollection form)
         {
-            ProductOnCart productOnCart = new ProductOnCart();
+            ProductOnCart productOnCart =   new ProductOnCart();
 
+            productOnCart.QuantityOnCart = Int32.Parse(form["QuantityToSell"]);
             productOnCart.IdProduct = Int32.Parse(form["IdProduct"]);
-            productOnCart.IdCart = 1;
-
+            productOnCart.IdCart = Convert.ToInt32(Session["UserIDCTM"]);
+            productOnCart.Status = "InProcess";
+            productOnCart.ProductName = (string)form["NameProduct"];
+            productOnCart.Price = db.ProductToSells.Find(productOnCart.IdProduct).Price;
             if (ModelState.IsValid)
             {
                 db.ProductOnCarts.Add(productOnCart);
@@ -54,6 +57,7 @@ namespace WebSpecialProject.Controllers
             }
             return View(productToSell);
         }
+
 
         // GET: Store/Create
         public ActionResult Create()

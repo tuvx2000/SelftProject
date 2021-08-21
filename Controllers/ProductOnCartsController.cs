@@ -94,7 +94,7 @@ namespace WebSpecialProject.Controllers
             return View(productOnCart);
         }
 
-        // GET: ProductOnCarts/Delete/5
+        /*
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -111,13 +111,14 @@ namespace WebSpecialProject.Controllers
 
         // POST: ProductOnCarts/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [ValidateAntiForgeryToken]*/
+        public ActionResult Delete(int id)
         {
             ProductOnCart productOnCart = db.ProductOnCarts.Find(id);
             db.ProductOnCarts.Remove(productOnCart);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            Response.Redirect("~/Cart/Index");
+            return View();
         }
 
         protected override void Dispose(bool disposing)

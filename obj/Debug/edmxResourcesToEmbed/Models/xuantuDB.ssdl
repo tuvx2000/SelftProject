@@ -69,6 +69,8 @@
     <Property Name="QuantityOnCart" Type="int" />
     <Property Name="IdCart" Type="int" Nullable="false" />
     <Property Name="Status" Type="nchar" MaxLength="10" />
+    <Property Name="ProductName" Type="nchar" MaxLength="50" />
+    <Property Name="Price" Type="float" />
     <Property Name="IdProduct" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ProductToSell">
@@ -133,6 +135,18 @@
     <Property Name="Email" Type="nvarchar" MaxLength="50" />
     <Property Name="IDType" Type="int" />
   </EntityType>
+  <Association Name="FK_Cart_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Order_Cart">
     <End Role="Cart" Type="Self.Cart" Multiplicity="0..1" />
     <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -166,6 +180,18 @@
       </Principal>
       <Dependent Role="ProductOnCart">
         <PropertyRef Name="IdCart" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductOnCart_ProductToSell">
+    <End Role="ProductToSell" Type="Self.ProductToSell" Multiplicity="1" />
+    <End Role="ProductOnCart" Type="Self.ProductOnCart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductToSell">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProductOnCart">
+        <PropertyRef Name="IdProduct" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -226,6 +252,10 @@
     <EntitySet Name="TypeOfProduct" EntityType="Self.TypeOfProduct" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TypeOfUser" EntityType="Self.TypeOfUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Cart_User" Association="Self.FK_Cart_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
     <AssociationSet Name="FK_Order_Cart" Association="Self.FK_Order_Cart">
       <End Role="Cart" EntitySet="Cart" />
       <End Role="Order" EntitySet="Order" />
@@ -236,6 +266,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_ProductOnCart_Cart" Association="Self.FK_ProductOnCart_Cart">
       <End Role="Cart" EntitySet="Cart" />
+      <End Role="ProductOnCart" EntitySet="ProductOnCart" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductOnCart_ProductToSell" Association="Self.FK_ProductOnCart_ProductToSell">
+      <End Role="ProductToSell" EntitySet="ProductToSell" />
       <End Role="ProductOnCart" EntitySet="ProductOnCart" />
     </AssociationSet>
     <AssociationSet Name="FK_ProductToSell_TypeOfProduct" Association="Self.FK_ProductToSell_TypeOfProduct">

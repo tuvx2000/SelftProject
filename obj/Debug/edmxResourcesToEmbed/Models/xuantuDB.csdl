@@ -60,6 +60,14 @@
       <End Role="TypeOfProduct" EntitySet="TypeOfProducts" />
       <End Role="ProductToSell" EntitySet="ProductToSells" />
     </AssociationSet>
+    <AssociationSet Name="FK_Cart_User" Association="WebProjectModel.FK_Cart_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductOnCart_ProductToSell" Association="WebProjectModel.FK_ProductOnCart_ProductToSell">
+      <End Role="ProductToSell" EntitySet="ProductToSells" />
+      <End Role="ProductOnCart" EntitySet="ProductOnCarts" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -104,6 +112,7 @@
     <Property Name="IdUser" Type="Int32" />
     <NavigationProperty Name="Orders" Relationship="WebProjectModel.FK_Order_Cart" FromRole="Cart" ToRole="Order" />
     <NavigationProperty Name="ProductOnCarts" Relationship="WebProjectModel.FK_ProductOnCart_Cart" FromRole="Cart" ToRole="ProductOnCart" />
+    <NavigationProperty Name="User" Relationship="WebProjectModel.FK_Cart_User" FromRole="Cart" ToRole="User" />
   </EntityType>
   <EntityType Name="Comment">
     <Key>
@@ -147,6 +156,9 @@
     <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="IdProduct" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Cart" Relationship="WebProjectModel.FK_ProductOnCart_Cart" FromRole="ProductOnCart" ToRole="Cart" />
+    <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="ProductToSell" Relationship="WebProjectModel.FK_ProductOnCart_ProductToSell" FromRole="ProductOnCart" ToRole="ProductToSell" />
+    <Property Name="Price" Type="Double" />
   </EntityType>
   <EntityType Name="ProductToSell">
     <Key>
@@ -161,6 +173,7 @@
     <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Origin" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <NavigationProperty Name="TypeOfProduct" Relationship="WebProjectModel.FK_ProductToSell_TypeOfProduct" FromRole="ProductToSell" ToRole="TypeOfProduct" />
+    <NavigationProperty Name="ProductOnCarts" Relationship="WebProjectModel.FK_ProductOnCart_ProductToSell" FromRole="ProductToSell" ToRole="ProductOnCart" />
   </EntityType>
   <EntityType Name="Reservation">
     <Key>
@@ -212,6 +225,7 @@
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="IDType" Type="Int32" />
     <NavigationProperty Name="Orders" Relationship="WebProjectModel.FK_Order_User" FromRole="User" ToRole="Order" />
+    <NavigationProperty Name="Carts" Relationship="WebProjectModel.FK_Cart_User" FromRole="User" ToRole="Cart" />
   </EntityType>
   <Association Name="FK_Order_Cart">
     <End Type="WebProjectModel.Cart" Role="Cart" Multiplicity="0..1" />
@@ -258,6 +272,30 @@
       </Principal>
       <Dependent Role="ProductToSell">
         <PropertyRef Name="IDType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cart_User">
+    <End Type="WebProjectModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="WebProjectModel.Cart" Role="Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductOnCart_ProductToSell">
+    <End Type="WebProjectModel.ProductToSell" Role="ProductToSell" Multiplicity="1" />
+    <End Type="WebProjectModel.ProductOnCart" Role="ProductOnCart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductToSell">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProductOnCart">
+        <PropertyRef Name="IdProduct" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

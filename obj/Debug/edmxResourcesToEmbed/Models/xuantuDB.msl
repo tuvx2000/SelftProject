@@ -93,6 +93,8 @@
     <EntitySetMapping Name="ProductOnCarts">
       <EntityTypeMapping TypeName="WebProjectModel.ProductOnCart">
         <MappingFragment StoreEntitySet="ProductOnCart">
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
           <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="IdCart" ColumnName="IdCart" />

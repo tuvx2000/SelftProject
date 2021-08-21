@@ -46,11 +46,15 @@ namespace WebSpecialProject.Controllers
             user.Address = form["diachi"];
             user.SDT = form["sdt"];
 
+            Cart cart = new Cart();
+            
+
             string inform = "";
             var search = dbcontext.Users.Where(m => m.UserName == user.UserName).FirstOrDefault();
             if (search == null)
             {
                 dbcontext.Users.Add(user);
+                dbcontext.Carts.Add(cart);
                 dbcontext.SaveChanges();
                 inform = "Đăng ký thành công. Hãy đăng nhập!";
                 ViewBag.Inform = inform;

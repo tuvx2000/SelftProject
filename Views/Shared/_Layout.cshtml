@@ -38,18 +38,16 @@
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">Training<em> Studio</em></a>
+                        <a href="/Home" class="logo">Training<em> Studio</em></a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                            <li class="scroll-to-section"><a href="#features" class="active">About</a></li>
-                            <li class="scroll-to-section"><a href="#our-classes" class="active">Classes</a></li>
-                            <li class="scroll-to-section"><a href="#schedule" class="active">Schedules</a></li>
-                            <li class="scroll-to-section"><a href="#contact-us" class="active">Contact</a></li>
-                            <li class="scroll-to-section"><a href="/Cart/Index" class="active">Cart</a></li>
 
-                            <li class="scroll-to-section"><a href="/Store/Index" class="active">Store</a></li>
+                            <li class="scroll-to-section"><a href="/Home" class="active">Home</a></li>
+                            <li class="scroll-to-section"><a href="/Store/Index" class="active">ID User: @Session["UserIDCTM"]</a></li>
+                            <li class="scroll-to-section"><a href="/Home" class="active">History Order</a></li>
+                            <li class="scroll-to-section"><a href="/Home" class="active">Contact</a></li>
+                            <li class="scroll-to-section"><a href="/Cart/Index" class="active">Cart</a></li>
 
                             @{
                                 var text = "Sign Up";
@@ -57,7 +55,7 @@
                                 var cart_show = "none";
                                 var color = "";
 
-                                if (Session["Status"] != null) { text = "Sign Out"; hre = "/Login/Logout"; cart_show = "normal";  color = "linen"; }
+                                if (Session["Status"] != null) { text = "Sign Out"; hre = "/Login/Logout"; cart_show = "normal"; color = "linen"; }
                             }
                             <li class="main-button"><a href=@hre style="background-color:@color">@text</a></li>
 

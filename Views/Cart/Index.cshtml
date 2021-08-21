@@ -13,40 +13,52 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.QuantityOnCart)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            @Html.DisplayNameFor(model => model.Price)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IdProduct)
+            @Html.DisplayNameFor(model => model.Status)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Cart.ID)
         </th>
         <th></th>
     </tr>
+    @{ double? cost = 0;}
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.QuantityOnCart)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdProduct)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cart.ID)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuantityOnCart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cart.ID)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "../ProductOnCarts/Delete", new { id = item.ID })
+            </td>
+        </tr>
+        cost = cost + item.Price * item.QuantityOnCart;
+    }
 
 </table>
+Total Cost: @cost
+<button>@Html.ActionLink("Buy", "../Cart/Buy", new { })</button>

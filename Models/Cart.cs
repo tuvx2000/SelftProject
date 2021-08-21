@@ -29,5 +29,6 @@ namespace WebSpecialProject.Models
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductOnCart> ProductOnCarts { get; set; }
+        public virtual User User { get; set; }
     }
 }

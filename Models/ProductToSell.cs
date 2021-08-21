@@ -14,6 +14,12 @@ namespace WebSpecialProject.Models
     
     public partial class ProductToSell
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ProductToSell()
+        {
+            this.ProductOnCarts = new HashSet<ProductOnCart>();
+        }
+    
         public int ID { get; set; }
         public string ProductName { get; set; }
         public Nullable<double> Price { get; set; }
@@ -24,5 +30,7 @@ namespace WebSpecialProject.Models
         public string Origin { get; set; }
     
         public virtual TypeOfProduct TypeOfProduct { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductOnCart> ProductOnCarts { get; set; }
     }
 }
