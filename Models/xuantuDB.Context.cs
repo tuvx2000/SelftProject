@@ -32,7 +32,6 @@ namespace WebSpecialProject.Models
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<DetailedInvoice> DetailedInvoices { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<ProductOnCart> ProductOnCarts { get; set; }
         public virtual DbSet<ProductToSell> ProductToSells { get; set; }
         public virtual DbSet<Reservation> Reservations { get; set; }
@@ -40,6 +39,7 @@ namespace WebSpecialProject.Models
         public virtual DbSet<TypeOfProduct> TypeOfProducts { get; set; }
         public virtual DbSet<TypeOfUser> TypeOfUsers { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

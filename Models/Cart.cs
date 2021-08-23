@@ -17,7 +17,6 @@ namespace WebSpecialProject.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Cart()
         {
-            this.Orders = new HashSet<Order>();
             this.ProductOnCarts = new HashSet<ProductOnCart>();
         }
     
@@ -25,8 +24,6 @@ namespace WebSpecialProject.Models
         public Nullable<double> TotalCost { get; set; }
         public Nullable<int> IdUser { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductOnCart> ProductOnCarts { get; set; }
         public virtual User User { get; set; }

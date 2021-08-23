@@ -19,6 +19,7 @@
 
 </head>
 <body>
+
     <!-- ***** Preloader Start *****-->
     <div id="js-preloader" class="js-preloader">
         <div class="preloader-inner">
@@ -44,10 +45,10 @@
                         <ul class="nav">
 
                             <li class="scroll-to-section"><a href="/Home" class="active">Home</a></li>
+                            <li class="scroll-to-section"><a href="/Order/Index" class="active">History Order</a></li>
+                            <li class="scroll-to-section"><a href="/Store/Index" class="active">Store</a></li>
                             <li class="scroll-to-section"><a href="/Store/Index" class="active">ID User: @Session["UserIDCTM"]</a></li>
-                            <li class="scroll-to-section"><a href="/Home" class="active">History Order</a></li>
-                            <li class="scroll-to-section"><a href="/Home" class="active">Contact</a></li>
-                            <li class="scroll-to-section"><a href="/Cart/Index" class="active">Cart</a></li>
+                            <li class="scroll-to-section"><a href="/Cart/Index" class="active">Cart(@Session["AmmountOnCart"])</a></li>
 
                             @{
                                 var text = "Sign Up";
@@ -73,6 +74,7 @@
     <!-- ***** Header Area End ***** -->
     @RenderBody()
 
+    <h1>Check: @Session["check-text"]</h1>
 
 
 

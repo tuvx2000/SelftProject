@@ -14,14 +14,19 @@ namespace WebSpecialProject.Models
     
     public partial class Order
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Order()
+        {
+            this.ProductOnCarts = new HashSet<ProductOnCart>();
+        }
+    
         public int ID { get; set; }
-        public Nullable<int> UserId { get; set; }
         public string Adress { get; set; }
         public string TimeBought { get; set; }
-        public Nullable<int> Status { get; set; }
-        public Nullable<int> IdCart { get; set; }
+        public string Status { get; set; }
+        public Nullable<double> TotalCost { get; set; }
     
-        public virtual Cart Cart { get; set; }
-        public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductOnCart> ProductOnCarts { get; set; }
     }
 }

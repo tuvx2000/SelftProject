@@ -36,7 +36,6 @@
     <EntitySet Name="Carts" EntityType="WebProjectModel.Cart" />
     <EntitySet Name="Comments" EntityType="WebProjectModel.Comment" />
     <EntitySet Name="DetailedInvoices" EntityType="WebProjectModel.DetailedInvoice" />
-    <EntitySet Name="Orders" EntityType="WebProjectModel.Order" />
     <EntitySet Name="ProductOnCarts" EntityType="WebProjectModel.ProductOnCart" />
     <EntitySet Name="ProductToSells" EntityType="WebProjectModel.ProductToSell" />
     <EntitySet Name="Reservations" EntityType="WebProjectModel.Reservation" />
@@ -44,17 +43,9 @@
     <EntitySet Name="TypeOfProducts" EntityType="WebProjectModel.TypeOfProduct" />
     <EntitySet Name="TypeOfUsers" EntityType="WebProjectModel.TypeOfUser" />
     <EntitySet Name="Users" EntityType="WebProjectModel.User" />
-    <AssociationSet Name="FK_Order_Cart" Association="WebProjectModel.FK_Order_Cart">
-      <End Role="Cart" EntitySet="Carts" />
-      <End Role="Order" EntitySet="Orders" />
-    </AssociationSet>
     <AssociationSet Name="FK_ProductOnCart_Cart" Association="WebProjectModel.FK_ProductOnCart_Cart">
       <End Role="Cart" EntitySet="Carts" />
       <End Role="ProductOnCart" EntitySet="ProductOnCarts" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Order_User" Association="WebProjectModel.FK_Order_User">
-      <End Role="User" EntitySet="Users" />
-      <End Role="Order" EntitySet="Orders" />
     </AssociationSet>
     <AssociationSet Name="FK_ProductToSell_TypeOfProduct" Association="WebProjectModel.FK_ProductToSell_TypeOfProduct">
       <End Role="TypeOfProduct" EntitySet="TypeOfProducts" />
@@ -66,6 +57,11 @@
     </AssociationSet>
     <AssociationSet Name="FK_ProductOnCart_ProductToSell" Association="WebProjectModel.FK_ProductOnCart_ProductToSell">
       <End Role="ProductToSell" EntitySet="ProductToSells" />
+      <End Role="ProductOnCart" EntitySet="ProductOnCarts" />
+    </AssociationSet>
+    <EntitySet Name="Orders" EntityType="WebProjectModel.Order" />
+    <AssociationSet Name="FK_ProductOnCart_Order" Association="WebProjectModel.FK_ProductOnCart_Order">
+      <End Role="Order" EntitySet="Orders" />
       <End Role="ProductOnCart" EntitySet="ProductOnCarts" />
     </AssociationSet>
   </EntityContainer>
@@ -110,7 +106,6 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="TotalCost" Type="Double" />
     <Property Name="IdUser" Type="Int32" />
-    <NavigationProperty Name="Orders" Relationship="WebProjectModel.FK_Order_Cart" FromRole="Cart" ToRole="Order" />
     <NavigationProperty Name="ProductOnCarts" Relationship="WebProjectModel.FK_ProductOnCart_Cart" FromRole="Cart" ToRole="ProductOnCart" />
     <NavigationProperty Name="User" Relationship="WebProjectModel.FK_Cart_User" FromRole="Cart" ToRole="User" />
   </EntityType>
@@ -133,19 +128,6 @@
     <Property Name="IntoMoney" Type="Double" />
     <Property Name="Quantity" Type="Int32" />
   </EntityType>
-  <EntityType Name="Order">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserId" Type="Int32" />
-    <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="TimeBought" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="Int32" />
-    <Property Name="IdCart" Type="Int32" />
-    <NavigationProperty Name="Cart" Relationship="WebProjectModel.FK_Order_Cart" FromRole="Order" ToRole="Cart" />
-    <NavigationProperty Name="User" Relationship="WebProjectModel.FK_Order_User" FromRole="Order" ToRole="User" />
-  </EntityType>
   <EntityType Name="ProductOnCart">
     <Key>
       <PropertyRef Name="ID" />
@@ -159,6 +141,8 @@
     <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
     <NavigationProperty Name="ProductToSell" Relationship="WebProjectModel.FK_ProductOnCart_ProductToSell" FromRole="ProductOnCart" ToRole="ProductToSell" />
     <Property Name="Price" Type="Double" />
+    <Property Name="IdOrder" Type="Int32" />
+    <NavigationProperty Name="Order" Relationship="WebProjectModel.FK_ProductOnCart_Order" FromRole="ProductOnCart" ToRole="Order" />
   </EntityType>
   <EntityType Name="ProductToSell">
     <Key>
@@ -224,21 +208,8 @@
     <Property Name="SDT" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="IDType" Type="Int32" />
-    <NavigationProperty Name="Orders" Relationship="WebProjectModel.FK_Order_User" FromRole="User" ToRole="Order" />
     <NavigationProperty Name="Carts" Relationship="WebProjectModel.FK_Cart_User" FromRole="User" ToRole="Cart" />
   </EntityType>
-  <Association Name="FK_Order_Cart">
-    <End Type="WebProjectModel.Cart" Role="Cart" Multiplicity="0..1" />
-    <End Type="WebProjectModel.Order" Role="Order" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Cart">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Order">
-        <PropertyRef Name="IdCart" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_ProductOnCart_Cart">
     <End Type="WebProjectModel.Cart" Role="Cart" Multiplicity="1" />
     <End Type="WebProjectModel.ProductOnCart" Role="ProductOnCart" Multiplicity="*" />
@@ -248,18 +219,6 @@
       </Principal>
       <Dependent Role="ProductOnCart">
         <PropertyRef Name="IdCart" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Order_User">
-    <End Type="WebProjectModel.User" Role="User" Multiplicity="0..1" />
-    <End Type="WebProjectModel.Order" Role="Order" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Order">
-        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -296,6 +255,29 @@
       </Principal>
       <Dependent Role="ProductOnCart">
         <PropertyRef Name="IdProduct" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TimeBought" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="ProductOnCarts" Relationship="WebProjectModel.FK_ProductOnCart_Order" FromRole="Order" ToRole="ProductOnCart" />
+    <Property Name="TotalCost" Type="Double" />
+  </EntityType>
+  <Association Name="FK_ProductOnCart_Order">
+    <End Type="WebProjectModel.Order" Role="Order" Multiplicity="0..1" />
+    <End Type="WebProjectModel.ProductOnCart" Role="ProductOnCart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProductOnCart">
+        <PropertyRef Name="IdOrder" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

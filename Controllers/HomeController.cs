@@ -12,12 +12,7 @@ namespace WebSpecialProject.Controllers
         WebProjectEntities dbcontext = new WebProjectEntities();
 
         public ActionResult Index()
-        {/*
-            var list = dbcontext.ProductToSell.ToList();
-            var x = list[0];
-            var y = x.ProductName;
-            return View(list);
-            */
+        {
             var list = dbcontext.ProductToSells.ToList();
 
             return View(list);

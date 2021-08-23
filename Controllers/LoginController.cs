@@ -29,6 +29,8 @@ namespace WebSpecialProject.Controllers
                 Session["UserCTMName"] = search.Name;
                 Session["UserCTMAddress"] = search.Address;
                 Session["UserCTMPhoneNumber"] = search.SDT;
+                Session["AmmountOnCart"] = dbcontext.ProductOnCarts.Where( p => p.Status == "InProcess").Count();
+
                 Response.Redirect("~/Home/Index");
             }
             else

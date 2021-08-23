@@ -24,18 +24,36 @@ namespace WebSpecialProject.Controllers
         [HttpPost]
         public ActionResult AddToCart(FormCollection form)
         {
-            ProductOnCart productOnCart =   new ProductOnCart();
 
-            productOnCart.QuantityOnCart = Int32.Parse(form["QuantityToSell"]);
-            productOnCart.IdProduct = Int32.Parse(form["IdProduct"]);
-            productOnCart.IdCart = Convert.ToInt32(Session["UserIDCTM"]);
-            productOnCart.Status = "InProcess";
-            productOnCart.ProductName = (string)form["NameProduct"];
-            productOnCart.Price = db.ProductToSells.Find(productOnCart.IdProduct).Price;
+
+            foreach(ProductOnCart item in db.ProductOnCarts.ToList())
+            {
+                if (item.IdProduct == Int32.Parse(form["IdProduct"]) && item.IdCart == Convert.ToInt32(Session["UserIDCTM"])
+                    && item.Status == "InProcess ")
+                {
+                    item.QuantityOnCart += Int32.Parse(form["QuantityToSell"]);
+                    //   Response.Redirect("~");
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+            }
+
+                ProductOnCart productOnCart = new ProductOnCart();
+                productOnCart.QuantityOnCart = Int32.Parse(form["QuantityToSell"]);
+                productOnCart.IdProduct = Int32.Parse(form["IdProduct"]);
+                productOnCart.IdCart = Convert.ToInt32(Session["UserIDCTM"]);
+                productOnCart.Status = "InProcess";
+                productOnCart.ProductName = (string)form["NameProduct"];
+                productOnCart.Price = db.ProductToSells.Find(productOnCart.IdProduct).Price;
+            
+
             if (ModelState.IsValid)
             {
                 db.ProductOnCarts.Add(productOnCart);
                 db.SaveChanges();
+                Session["AmmountOnCart"] = db.ProductOnCarts.Where(p => p.Status == "InProcess").Count();
+
                 return RedirectToAction("Index");
             }
 

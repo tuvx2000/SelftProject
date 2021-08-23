@@ -118,6 +118,7 @@ namespace WebSpecialProject.Controllers
             db.ProductOnCarts.Remove(productOnCart);
             db.SaveChanges();
             Response.Redirect("~/Cart/Index");
+            Session["AmmountOnCart"] = db.ProductOnCarts.Where(p => p.Status == "InProcess").Count();
             return View();
         }
 

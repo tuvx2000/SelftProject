@@ -21,8 +21,10 @@ namespace WebSpecialProject.Models
         public int IdProduct { get; set; }
         public string ProductName { get; set; }
         public Nullable<double> Price { get; set; }
+        public Nullable<int> IdOrder { get; set; }
     
         public virtual Cart Cart { get; set; }
         public virtual ProductToSell ProductToSell { get; set; }
+        public virtual Order Order { get; set; }
     }
 }

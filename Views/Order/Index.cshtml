@@ -1,0 +1,66 @@
+﻿@model IEnumerable<WebSpecialProject.Models.Order>
+
+@{
+    ViewBag.Title = "ListOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ListOrder</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ID) Order
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeBought)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalCost)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+                        <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeBought)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+                        <td>
+                @Html.DisplayFor(modelItem => item.TotalCost)
+            </td>
+             <td>
+                <form method="post" action="/Order/ConfirmReceived">
+                    <input type="number" style="display:none;" value="@item.ID" name="IdOrder" />
+                    <button type="submit"> Confirm Received</button>
+                </form>
+            </td>           
+            <td>
+                <form method="post" action="/Order/DetailOrder">
+                    <input type="number" style="display:none;" value="@item.ID" name="IdOrder" />
+                    <button type="submit"> Details</button>
+                </form>
+            </td>
+        </tr>
+    }
+
+</table>
