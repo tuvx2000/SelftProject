@@ -18,28 +18,22 @@ namespace WebSpecialProject.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(String taikhoan, String matkhau)
-        {
-                
+        public void Login(String taikhoan, String matkhau)
+        {          
             var search = dbcontext.Users.Where(m => m.UserName == taikhoan && m.PassWord == matkhau).FirstOrDefault();
             if (search != null)
             {   
-                Session["UserCTM"] = search.UserName;
+                Session["CustomerName"] = search.UserName;
                 Session["UserIDCTM"] = search.ID;
-                Session["UserCTMName"] = search.Name;
-                Session["UserCTMAddress"] = search.Address;
-                Session["UserCTMPhoneNumber"] = search.SDT;
+                Session["Status"] = "logedIn";
                 Session["AmmountOnCart"] = dbcontext.ProductOnCarts.Where( p => p.Status == "InProcess").Count();
 
                 Response.Redirect("~/Home/Index");
             }
             else
             {
-                return View("Login");
+                Response.Redirect("~/Login/Login");
             }
-            Session["Status"] = "1";
-            Session["CustomerName"] = search.Name;
-            return View();
         }
 
         public ActionResult Logout()

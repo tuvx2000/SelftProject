@@ -80,3 +80,4 @@ C:\Users\TuanVXM\Desktop\WebSpecialProject\obj\Debug\WebSpecialProject.csproj.Co
 C:\Users\TuanVXM\Desktop\WebSpecialProject\obj\Debug\WebSpecialProject.csproj.CopyComplete
 C:\Users\TuanVXM\Desktop\WebSpecialProject\obj\Debug\WebSpecialProject.dll
 C:\Users\TuanVXM\Desktop\WebSpecialProject\obj\Debug\WebSpecialProject.pdb
+C:\Users\TuanVXM\Desktop\WebSpecialProject\obj\Debug\WebSpecialProject.csprojAssemblyReference.cache
