@@ -35,15 +35,17 @@ namespace WebSpecialProject.Controllers
         }
         public void CreateOrder()
         {
+            int x = Convert.ToInt32(Session["UserIDCTM"]);
+
             Order order = new Order();//Tao Order
             order.Status = "Delivering";
             order.TimeBought = DateTime.Now.ToString();
+            order.Adress = db.Users.Find(x).Address;
             Random rand = new Random();
             order.ID = rand.Next(0, 100000000);
             db.Orders.Add(order);
 
             double? cost = 0;// Update Table OnSale
-            int x = Convert.ToInt32(Session["UserIDCTM"]);
             var productOnCarts = db.ProductOnCarts.Where(p => p.IdCart == x);
             foreach (ProductOnCart product in productOnCarts)
             {

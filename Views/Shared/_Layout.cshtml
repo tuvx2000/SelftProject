@@ -15,11 +15,11 @@
 
     <link rel="stylesheet" href="../Preferences/css/templatemo-training-studio.css">
 
-    
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
 
 </head>
 <body>
-
+    <h5> test: @Session["CustomerName"]</h5>
     <!-- ***** Preloader Start *****-->
     <div id="js-preloader" class="js-preloader">
         <div class="preloader-inner">
@@ -45,10 +45,14 @@
                         <ul class="nav">
 
                             <li class="scroll-to-section"><a href="/Home" class="active">Home</a></li>
-                            <li class="scroll-to-section"><a href="/Order/Index" class="active">History Order</a></li>
                             <li class="scroll-to-section"><a href="/Store/Index" class="active">Store</a></li>
-                            <li class="scroll-to-section"><a href="/Store/Index" class="active">ID User: @Session["UserIDCTM"]</a></li>
-                            <li class="scroll-to-section"><a href="/Cart/Index" class="active">Cart(@Session["AmmountOnCart"])</a></li>
+                            @if(Session["CustomerName"] != null)
+                             { 
+                                <li class="scroll-to-section"><a href="/Order/Index" class="active">History Order</a></li>
+                                <li class="scroll-to-section"><a href="/Store/Index" class="active">ID User: @Session["UserIDCTM"]</a></li>
+                                <li class="scroll-to-section"><a href="/Cart/Index" class="active">Cart(@Session["AmmountOnCart"])</a></li>
+                             }
+
 
                             @{
                                 var text = "Sign Up";
