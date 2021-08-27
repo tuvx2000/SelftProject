@@ -19,6 +19,7 @@
 
 </head>
 <body>
+    <h5> @Session["text-check"]</h5>
     <!-- ***** Preloader Start *****-->
     <div id="js-preloader" class="js-preloader">
         <div class="preloader-inner">
@@ -45,12 +46,12 @@
 
                             <li class="scroll-to-section"><a href="/Home" class="active">Home</a></li>
                             <li class="scroll-to-section"><a href="/Store/Index" class="active">Store</a></li>
-                            @if(Session["CustomerName"] != null)
-                             { 
+                            @if (Session["CustomerName"] != null)
+                            {
                                 <li class="scroll-to-section"><a href="/Order/Index" class="active">History Order</a></li>
                                 <li class="scroll-to-section"><a href="/Store/Index" class="active">ID User: @Session["UserIDCTM"]</a></li>
                                 <li class="scroll-to-section"><a href="/Cart/Index" class="active">Cart(@Session["AmmountOnCart"])</a></li>
-                             }
+                            }
 
 
                             @{
@@ -76,8 +77,14 @@
     </header>
     <!-- ***** Header Area End ***** -->
     @RenderBody()
+    <h4>Check OD: @Session["text-checkorder"]</h4> <hr />
 
-    <h1>Check: @Session["check-text"]</h1>
+    <h4>Check: @Session["text-checkParam"]</h4> <hr />
+    <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr />
+    <h4>Check2: @Session["text-check1"]</h4> <hr />
+    <h4>Check3: @Session["text-check2"]</h4> <hr />
+    <h4>Check3: @Session["text-check3"]</h4> <hr />
+
 
 
 

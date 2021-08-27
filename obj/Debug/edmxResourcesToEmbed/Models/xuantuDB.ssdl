@@ -14,23 +14,10 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserName" Type="nchar" MaxLength="20" />
     <Property Name="PassWord" Type="nchar" MaxLength="20" />
     <Property Name="Name" Type="nchar" MaxLength="20" />
-  </EntityType>
-  <EntityType Name="BasicSettings">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="TypeOfBasicSettings" Type="int" Nullable="false" />
-    <Property Name="BoolValue" Type="bit" Nullable="false" />
-    <Property Name="IntValue" Type="int" Nullable="false" />
-    <Property Name="Value" Type="nvarchar" MaxLength="255" />
-    <Property Name="Deleted" Type="int" Nullable="false" />
-    <Property Name="Active" Type="bit" Nullable="false" />
-    <Property Name="Default" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Cart">
     <Key>
@@ -67,6 +54,7 @@
     <Property Name="Adress" Type="nvarchar" MaxLength="50" />
     <Property Name="TimeBought" Type="nvarchar" MaxLength="50" />
     <Property Name="TotalCost" Type="float" />
+    <Property Name="IdOnMomo" Type="int" />
     <Property Name="Status" Type="char" MaxLength="20" />
   </EntityType>
   <EntityType Name="ProductOnCart">
@@ -238,7 +226,6 @@
   <EntityContainer Name="WebProjectModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="BasicSettings" EntityType="Self.BasicSettings" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DetailedInvoice" EntityType="Self.DetailedInvoice" Schema="dbo" store:Type="Tables" />

@@ -23,8 +23,9 @@ namespace WebSpecialProject.Models
         public int ID { get; set; }
         public string Adress { get; set; }
         public string TimeBought { get; set; }
-        public string Status { get; set; }
         public Nullable<double> TotalCost { get; set; }
+        public Nullable<int> IdOnMomo { get; set; }
+        public string Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductOnCart> ProductOnCarts { get; set; }

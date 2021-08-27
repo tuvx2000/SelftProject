@@ -4,7 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebSpecialProject.Models;
-
+using MoMo;
+using Newtonsoft.Json.Linq;
 
 namespace WebSpecialProject.Controllers
 {
@@ -33,16 +34,34 @@ namespace WebSpecialProject.Controllers
             }
             return View(Results);
         }
-        public void CreateOrder()
+        public void CreateOrderMoMo()
+        {
+            int orderId = CreateOrder("MoMo");
+            BuyWithMomoStepToServer(orderId);
+
+        }
+        public void CreateOrderCash()
+        {
+            CreateOrder("Cash");
+            Response.Redirect("~/Home/Index");
+
+        }
+
+        public  int CreateOrder(string chanelPay)
         {
             int x = Convert.ToInt32(Session["UserIDCTM"]);
 
             Order order = new Order();//Tao Order
-            order.Status = "Delivering";
+            if(chanelPay == "Cash")
+               order.Status = "Cash-Payed";
+            else if(chanelPay == "MoMo")
+                order.Status = "MoMo-InProcess";
+
+
             order.TimeBought = DateTime.Now.ToString();
             order.Adress = db.Users.Find(x).Address;
             Random rand = new Random();
-            order.ID = rand.Next(0, 100000000);
+            order.IdOnMomo = rand.Next(100000, 100000000);
             db.Orders.Add(order);
 
             double? cost = 0;// Update Table OnSale
@@ -65,7 +84,8 @@ namespace WebSpecialProject.Controllers
 
             db.SaveChanges();
             Session["AmmountOnCart"] = db.ProductOnCarts.Where(p => p.Status == "InProcess").Count();
-            Response.Redirect("~/Home/Index");
+
+            return order.ID;
         }
         [HttpPost]
         public ActionResult DetailOrder(FormCollection form)
@@ -78,6 +98,8 @@ namespace WebSpecialProject.Controllers
 
             return View(listProductOnDetail);
         }
+
+
         
          [HttpPost]
         public void ConfirmReceived(FormCollection form)
@@ -89,6 +111,61 @@ namespace WebSpecialProject.Controllers
             db.SaveChanges();
 
             Response.Redirect("~/Order/Index");
+        }
+
+
+
+
+
+
+        public void BuyWithMomoStepToServer(int orderIdMoMo)
+        {
+            string endpoint = "https://payment.momo.vn/gw_payment/transactionProcessor";
+            string partnerCode = "MOMODKHI20210823";
+            string accessKey = "1G3T2L88zJ2zyeSs";
+            string secretKey = "nDKAK4Sx6v4o9vJ9lKuZ9qHmwnePREWn";
+            string orderInfo = "DH" + DateTime.Now.ToString("yyyyMMddHHmmss");
+            string returnUrl = "https://localhost:44374/Payments/MoMoNreturnUrl";
+            string notifUrl = "https://localhost:44374/Payments/MoMonotifUrl";
+
+            string amount = "1000";
+            string orderId = orderIdMoMo.ToString();
+            string requestId = "8880";
+            string extraData = "";
+
+            string rawHash =
+                "partnerCode=" + partnerCode +
+                "&accessKey=" + accessKey +
+                "&requestId=" + requestId +
+                "&amount=" + amount +
+                "&orderId=" + orderId +
+                "&orderInfo=" + orderInfo +
+                "&returnUrl=" + returnUrl +
+                "&notifyUrl=" + notifUrl +
+                "&extraData=" + extraData;
+            Session["text-check"] = rawHash;
+            MoMoSecurity crypto = new MoMoSecurity();
+
+            string signature = crypto.signSHA256(rawHash, secretKey);
+            JObject message = new JObject
+                {
+                   {"partnerCode" , partnerCode},
+                   {"accessKey" , accessKey},
+                   {"requestId" , requestId},
+                   {"amount" , amount},
+                   {"orderId" , orderId},
+                   {"orderInfo" , orderInfo},
+                   {"returnUrl" , returnUrl},
+                   {"notifyUrl" , notifUrl},
+                   {"requestType","captureMoMoWallet"},
+                   {"signature" , signature }
+                };
+            Session["text-check1"] = message;
+            string responseFromMoMo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
+            Session["text-check2"] = responseFromMoMo;
+            JObject jmessage = JObject.Parse(responseFromMoMo);
+            Session["text-check3"] = jmessage;
+            Response.Redirect(jmessage.GetValue("payUrl").ToString());
         }
     }
 }

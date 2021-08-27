@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MoMo;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,10 +22,15 @@ namespace WebSpecialProject.Controllers
             return View(productOnCarts.ToList());
         }
     
-        public ActionResult Buy()
+        public void Buy()
         {
-            Response.Redirect("~/Order/CreateOrder");
-            return View();
+            Response.Redirect("~/Order/CreateOrderCash");
         }
+        public void BuyWithMomo()
+        {
+            Response.Redirect("~/Order/CreateOrderMoMo");
+        }
+
     }
+
 }

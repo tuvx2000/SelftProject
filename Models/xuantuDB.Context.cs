@@ -28,7 +28,6 @@ namespace WebSpecialProject.Models
         }
     
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
-        public virtual DbSet<BasicSetting> BasicSettings { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<DetailedInvoice> DetailedInvoices { get; set; }
@@ -39,8 +38,8 @@ namespace WebSpecialProject.Models
         public virtual DbSet<TypeOfProduct> TypeOfProducts { get; set; }
         public virtual DbSet<TypeOfUser> TypeOfUsers { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Admin> Admins { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

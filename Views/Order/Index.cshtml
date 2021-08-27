@@ -16,6 +16,9 @@
             @Html.DisplayNameFor(model => model.ID) Order
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.ID) Order MoMo
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Adress)
         </th>
         <th>
@@ -33,8 +36,11 @@
     @foreach (var item in Model)
     {
         <tr>
-                        <td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdOnMomo)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Adress)
@@ -45,15 +51,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
-                        <td>
+            <td>
                 @Html.DisplayFor(modelItem => item.TotalCost)
             </td>
-             <td>
+            <td>
                 <form method="post" action="/Order/ConfirmReceived">
                     <input type="number" style="display:none;" value="@item.ID" name="IdOrder" />
                     <button type="submit"> Confirm Received</button>
                 </form>
-            </td>           
+            </td>
             <td>
                 <form method="post" action="/Order/DetailOrder">
                     <input type="number" style="display:none;" value="@item.ID" name="IdOrder" />

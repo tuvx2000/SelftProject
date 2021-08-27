@@ -35,20 +35,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="BasicSettings">
-      <EntityTypeMapping TypeName="WebProjectModel.BasicSetting">
-        <MappingFragment StoreEntitySet="BasicSettings">
-          <ScalarProperty Name="Default" ColumnName="Default" />
-          <ScalarProperty Name="Active" ColumnName="Active" />
-          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-          <ScalarProperty Name="Value" ColumnName="Value" />
-          <ScalarProperty Name="IntValue" ColumnName="IntValue" />
-          <ScalarProperty Name="BoolValue" ColumnName="BoolValue" />
-          <ScalarProperty Name="TypeOfBasicSettings" ColumnName="TypeOfBasicSettings" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Carts">
       <EntityTypeMapping TypeName="WebProjectModel.Cart">
         <MappingFragment StoreEntitySet="Cart">
@@ -160,17 +146,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Orders">
-      <EntityTypeMapping TypeName="WebProjectModel.Order">
-        <MappingFragment StoreEntitySet="Order">
-          <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="TimeBought" ColumnName="TimeBought" />
-          <ScalarProperty Name="Adress" ColumnName="Adress" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Admins">
       <EntityTypeMapping TypeName="WebProjectModel.Admin">
         <MappingFragment StoreEntitySet="Admin">
@@ -178,6 +153,18 @@
           <ScalarProperty Name="PassWord" ColumnName="PassWord" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="WebProjectModel.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="IdOnMomo" ColumnName="IdOnMomo" />
+          <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+          <ScalarProperty Name="TimeBought" ColumnName="TimeBought" />
+          <ScalarProperty Name="Adress" ColumnName="Adress" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

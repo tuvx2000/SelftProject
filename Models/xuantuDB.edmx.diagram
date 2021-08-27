@@ -6,7 +6,6 @@
     <edmx:Diagrams>
       <Diagram DiagramId="01ed6ee87797439a88aedbb9c532ade0" Name="Diagram1" ZoomLevel="57">
         <EntityTypeShape EntityType="WebProjectModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="4.75" />
-        <EntityTypeShape EntityType="WebProjectModel.BasicSetting" Width="1.5" PointX="7.75" PointY="4.75" />
         <EntityTypeShape EntityType="WebProjectModel.Cart" Width="1.5" PointX="0.75" PointY="2.875" />
         <EntityTypeShape EntityType="WebProjectModel.Comment" Width="1.5" PointX="5.75" PointY="8.75" />
         <EntityTypeShape EntityType="WebProjectModel.DetailedInvoice" Width="1.5" PointX="7.75" PointY="8.75" />
@@ -21,9 +20,9 @@
         <AssociationConnector Association="WebProjectModel.FK_ProductToSell_TypeOfProduct" />
         <AssociationConnector Association="WebProjectModel.FK_Cart_User" />
         <AssociationConnector Association="WebProjectModel.FK_ProductOnCart_ProductToSell" />
-        <EntityTypeShape EntityType="WebProjectModel.Order" Width="1.5" PointX="10.375" PointY="0.875" />
-        <AssociationConnector Association="WebProjectModel.FK_ProductOnCart_Order" />
         <EntityTypeShape EntityType="WebProjectModel.Admin" Width="1.5" PointX="12.25" PointY="6.125" />
+        <EntityTypeShape EntityType="WebProjectModel.Order" Width="1.5" PointX="10.375" PointY="1" />
+        <AssociationConnector Association="WebProjectModel.FK_ProductOnCart_Order" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

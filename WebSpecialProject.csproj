@@ -136,6 +136,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\ProductOnCartsController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -143,9 +144,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Admin.cs">
-      <DependentUpon>xuantuDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BasicSetting.cs">
       <DependentUpon>xuantuDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart.cs">
@@ -163,6 +161,7 @@
     <Compile Include="Models\Order.cs">
       <DependentUpon>xuantuDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PaymentRequest.cs" />
     <Compile Include="Models\ProductOnCart.cs">
       <DependentUpon>xuantuDB.tt</DependentUpon>
     </Compile>
@@ -205,6 +204,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>xuantuDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\MoMoSecurity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -702,6 +702,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Base\" />
+    <Folder Include="Views\Payments\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

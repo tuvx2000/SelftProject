@@ -32,7 +32,6 @@
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
     <EntitySet Name="C__MigrationHistory" EntityType="WebProjectModel.C__MigrationHistory" />
-    <EntitySet Name="BasicSettings" EntityType="WebProjectModel.BasicSetting" />
     <EntitySet Name="Carts" EntityType="WebProjectModel.Cart" />
     <EntitySet Name="Comments" EntityType="WebProjectModel.Comment" />
     <EntitySet Name="DetailedInvoices" EntityType="WebProjectModel.DetailedInvoice" />
@@ -59,12 +58,12 @@
       <End Role="ProductToSell" EntitySet="ProductToSells" />
       <End Role="ProductOnCart" EntitySet="ProductOnCarts" />
     </AssociationSet>
+    <EntitySet Name="Admins" EntityType="WebProjectModel.Admin" />
     <EntitySet Name="Orders" EntityType="WebProjectModel.Order" />
     <AssociationSet Name="FK_ProductOnCart_Order" Association="WebProjectModel.FK_ProductOnCart_Order">
       <End Role="Order" EntitySet="Orders" />
       <End Role="ProductOnCart" EntitySet="ProductOnCarts" />
     </AssociationSet>
-    <EntitySet Name="Admins" EntityType="WebProjectModel.Admin" />
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -86,19 +85,6 @@
     <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
     <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
     <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="BasicSetting">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="TypeOfBasicSettings" Type="Int32" Nullable="false" />
-    <Property Name="BoolValue" Type="Boolean" Nullable="false" />
-    <Property Name="IntValue" Type="Int32" Nullable="false" />
-    <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Deleted" Type="Int32" Nullable="false" />
-    <Property Name="Active" Type="Boolean" Nullable="false" />
-    <Property Name="Default" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="Cart">
     <Key>
@@ -259,6 +245,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="PassWord" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+  </EntityType>
   <EntityType Name="Order">
     <Key>
       <PropertyRef Name="ID" />
@@ -266,9 +261,10 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="TimeBought" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TotalCost" Type="Double" />
+    <Property Name="IdOnMomo" Type="Int32" />
     <Property Name="Status" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="ProductOnCarts" Relationship="WebProjectModel.FK_ProductOnCart_Order" FromRole="Order" ToRole="ProductOnCart" />
-    <Property Name="TotalCost" Type="Double" />
   </EntityType>
   <Association Name="FK_ProductOnCart_Order">
     <End Type="WebProjectModel.Order" Role="Order" Multiplicity="0..1" />
@@ -282,13 +278,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="Admin">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="UserName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-    <Property Name="PassWord" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-    <Property Name="Name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-  </EntityType>
 </Schema>
